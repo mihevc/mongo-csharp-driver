@@ -165,7 +165,7 @@ namespace MongoDB.Bson.Serialization.Serializers
 
             // otherwise try to find a no-argument constructor and an Add method
             var valueTypeInfo = typeof(TValue).GetTypeInfo();
-            var noArgumentConstructorInfo = valueTypeInfo.GetConstructor(new Type[] { });
+            var noArgumentConstructorInfo = typeof(TValue).GetConstructor(new Type[] { });
             var addMethodInfo = typeof(TValue).GetMethod("Add", new Type[] { typeof(TItem) });
             if (noArgumentConstructorInfo != null && addMethodInfo != null)
             {

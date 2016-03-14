@@ -192,7 +192,7 @@ namespace MongoDB.Bson
             if (valueTypeInfo.IsEnum)
             {
                 valueType = Enum.GetUnderlyingType(valueType);
-                switch (Type.GetTypeCode(valueType))
+                switch (valueType.GetTypeCode())
                 {
                     case TypeCode.Byte: value = (int)(byte)value; break;
                     case TypeCode.Int16: value = (int)(short)value; break;
@@ -445,7 +445,7 @@ namespace MongoDB.Bson
             if (valueTypeInfo.IsEnum)
             {
                 valueType = Enum.GetUnderlyingType(valueType);
-                switch (Type.GetTypeCode(valueType))
+                switch (valueType.GetTypeCode())
                 {
                     case TypeCode.Byte: value = (int)(byte)value; break;
                     case TypeCode.Int16: value = (int)(short)value; break;

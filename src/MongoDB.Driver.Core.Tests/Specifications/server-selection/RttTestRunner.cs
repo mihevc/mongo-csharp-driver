@@ -21,6 +21,7 @@ using System.Reflection;
 using FluentAssertions;
 using MongoDB.Bson;
 using MongoDB.Driver.Core.Misc;
+using MongoDB.Driver.Core.Tests;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
@@ -51,9 +52,10 @@ namespace MongoDB.Driver.Specifications.server_selection
         {
             public static IEnumerable<ITestCaseData> GetTestCases()
             {
-                const string prefix = "MongoDB.Driver.Specifications.server_selection.tests.rtt.";
-                return Assembly
-                    .GetExecutingAssembly()
+                const string prefix = "MongoDB.Driver.Core.Tests.Specifications.server_selection.tests.rtt.";
+                return typeof(Program)
+                    .GetTypeInfo()
+                    .Assembly
                     .GetManifestResourceNames()
                     .Where(path => path.StartsWith(prefix) && path.EndsWith(".json"))
                     .Select(path =>
@@ -69,7 +71,7 @@ namespace MongoDB.Driver.Specifications.server_selection
 
             private static BsonDocument ReadDefinition(string path)
             {
-                using (var definitionStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path))
+                using (var definitionStream = typeof(Program).GetTypeInfo().Assembly.GetManifestResourceStream(path))
                 using (var definitionStringReader = new StreamReader(definitionStream))
                 {
                     var definitionString = definitionStringReader.ReadToEnd();

@@ -23,7 +23,7 @@ namespace MongoDB.Driver.Core.Misc
         public string Generate(int length, string legalCharacters)
         {
             var randomData = new byte[length];
-            using (var rng = new RNGCryptoServiceProvider())
+            using (var rng = RandomNumberGenerator.Create())// RNGCryptoServiceProvider())
             {
                 rng.GetBytes(randomData);
             }

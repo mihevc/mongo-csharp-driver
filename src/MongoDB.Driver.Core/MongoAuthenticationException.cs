@@ -23,7 +23,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB authentication exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoAuthenticationException : MongoConnectionException
     {

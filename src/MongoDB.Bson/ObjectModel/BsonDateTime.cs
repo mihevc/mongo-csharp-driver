@@ -21,7 +21,7 @@ namespace MongoDB.Bson
     /// <summary>
     /// Represents a BSON DateTime value.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class BsonDateTime : BsonValue, IComparable<BsonDateTime>, IEquatable<BsonDateTime>
     {
         // private fields

@@ -536,10 +536,10 @@ namespace MongoDB.Bson.Serialization
                 return Enum.ToObject(type, 0);
             }
 
-            switch (Type.GetTypeCode(type))
+            switch (type.GetTypeCode())
             {
                 case TypeCode.Empty:
-                case TypeCode.DBNull:
+                //case TypeCode.DBNull:
                 case TypeCode.String:
                     break;
                 case TypeCode.Object:
@@ -562,6 +562,8 @@ namespace MongoDB.Bson.Serialization
                 case TypeCode.Double: return 0D;
                 case TypeCode.Decimal: return 0M;
                 case TypeCode.DateTime: return DateTime.MinValue;
+                default:
+                    throw new Exception("unknown type code: maybe DBNull");
             }
             return null;
         }

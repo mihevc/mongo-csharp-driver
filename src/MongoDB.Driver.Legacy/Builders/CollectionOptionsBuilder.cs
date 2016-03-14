@@ -129,7 +129,7 @@ namespace MongoDB.Driver.Builders
     /// <summary>
     /// A builder for the options used when creating a collection.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(CollectionOptionsBuilder.Serializer))]
     public class CollectionOptionsBuilder : BuilderBase, IMongoCollectionOptions
     {

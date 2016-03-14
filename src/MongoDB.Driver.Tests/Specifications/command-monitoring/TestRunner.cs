@@ -318,8 +318,7 @@ namespace MongoDB.Driver.Tests.Specifications.command_monitoring
             public static IEnumerable<ITestCaseData> GetTestCases()
             {
                 const string prefix = "MongoDB.Driver.Tests.Specifications.command_monitoring.tests.";
-                var testDocuments = Assembly
-                    .GetExecutingAssembly()
+                var testDocuments = typeof(Program).GetTypeInfo().Assembly
                     .GetManifestResourceNames()
                     .Where(path => path.StartsWith(prefix) && path.EndsWith(".json"))
                     .Select(path => ReadDocument(path));
@@ -346,7 +345,7 @@ namespace MongoDB.Driver.Tests.Specifications.command_monitoring
 
             private static BsonDocument ReadDocument(string path)
             {
-                using (var definitionStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path))
+                using (var definitionStream = typeof(Program).GetTypeInfo().Assembly.GetManifestResourceStream(path))
                 using (var definitionStringReader = new StreamReader(definitionStream))
                 {
                     var definitionString = definitionStringReader.ReadToEnd();

@@ -1087,7 +1087,7 @@ namespace MongoDB.Driver.Tests.Linq.Translators
         [Test]
         [TestCase(StringComparison.CurrentCulture)]
         [TestCase(StringComparison.CurrentCultureIgnoreCase)]
-        [TestCase(StringComparison.InvariantCulture)]
+        //[TestCase(StringComparison.InvariantCulture)]
 #if NET45
         [TestCase(StringComparison.InvariantCultureIgnoreCase)]
 #endif

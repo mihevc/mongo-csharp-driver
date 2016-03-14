@@ -40,7 +40,7 @@ namespace MongoDB.Driver.Linq.Translators
             var modelTypeInfo = modelType.GetTypeInfo();
             var outputSerializerInterfaceType = typeof(IBsonSerializer<>).MakeGenericType(new[] { outputType });
             var constructorParameterTypes = new Type[] { typeof(IEnumerable<BsonDocument>), outputSerializerInterfaceType };
-            var constructorInfo = modelTypeInfo.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
+            var constructorInfo = modelTypeInfo.DeclaredConstructors.Where(x => x.IsStatic == false && x.IsPrivate == false) // .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
                 .Where(c => c.GetParameters().Select(p => p.ParameterType).SequenceEqual(constructorParameterTypes))
                 .Single();
             var constructorParameters = new object[] { translator._stages, translator._outputSerializer };

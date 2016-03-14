@@ -15,7 +15,9 @@
 
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Security;
 using System.Threading;
 
@@ -24,7 +26,7 @@ namespace MongoDB.Bson
     /// <summary>
     /// Represents an ObjectId (see also BsonObjectId).
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public struct ObjectId : IComparable<ObjectId>, IEquatable<ObjectId>, IConvertible
     {
         // private static fields
@@ -34,8 +36,11 @@ namespace MongoDB.Bson
         private static int __staticIncrement = (new Random()).Next();
 
         // private fields
+        [DataMember]
         private int _a;
+        [DataMember]
         private int _b;
+        [DataMember]
         private int _c;
 
         // constructors
@@ -618,7 +623,7 @@ namespace MongoDB.Bson
 
         object IConvertible.ToType(Type conversionType, IFormatProvider provider)
         {
-            switch (Type.GetTypeCode(conversionType))
+            switch (conversionType.GetTypeCode())
             {
                 case TypeCode.String:
                     return ((IConvertible)this).ToString(provider);

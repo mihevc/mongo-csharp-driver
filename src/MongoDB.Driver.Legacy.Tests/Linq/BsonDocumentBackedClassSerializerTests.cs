@@ -99,7 +99,7 @@ namespace MongoDB.Driver.Tests.Linq
             Name
         }
 
-        [Serializable]
+        [System.Runtime.Serialization.DataContract]
         [BsonSerializer(typeof(TestDocumentClassSerializer))]
         public class TestDocument : BsonDocumentBackedClass
         {

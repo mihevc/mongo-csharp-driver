@@ -647,7 +647,7 @@ namespace MongoDB.Driver.Linq.Translators
                     methodDeclaringTypeInfo = methodDeclaringType.GetTypeInfo();
                 }
 
-                bool contains = methodDeclaringType == typeof(ICollection<>) || methodDeclaringTypeInfo.GetInterface("ICollection`1") != null;
+                bool contains = methodDeclaringType == typeof(ICollection<>) || methodDeclaringType.ImplementsInterface(typeof(ICollection<>)); //.GetInterface("ICollection`1") != null;
                 if (contains && arguments.Length == 1)
                 {
                     fieldExpression = GetFieldExpression(arguments[0]);

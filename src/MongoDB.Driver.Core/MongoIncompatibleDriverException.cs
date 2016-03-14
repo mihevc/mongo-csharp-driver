@@ -23,7 +23,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB incompatible driver exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoIncompatibleDriverException : MongoClientException
     {

@@ -20,7 +20,7 @@ namespace MongoDB.Bson
     /// <summary>
     /// Represents the binary data subtype of a BsonBinaryData.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public enum BsonBinarySubType
     {
         /// <summary>

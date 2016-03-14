@@ -15,6 +15,7 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization.Serializers;
 
@@ -103,7 +104,7 @@ namespace MongoDB.Bson.Serialization.Conventions
                 }
 
                 // Type.IsAssignableFrom is extremely expensive, always perform a direct type check before calling Type.IsAssignableFrom
-                if (primitiveType != null && (primitiveType == nominalType || nominalType.IsAssignableFrom(primitiveType)))
+                if (primitiveType != null && (primitiveType == nominalType || nominalType.GetTypeInfo().IsAssignableFrom(primitiveType.GetTypeInfo())))
                 {
                     return primitiveType;
                 }

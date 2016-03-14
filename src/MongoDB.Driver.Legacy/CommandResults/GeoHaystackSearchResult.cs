@@ -27,7 +27,7 @@ namespace MongoDB.Driver
     /// <summary>
     /// Represents the result of a GeoHaystackSearch command.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public abstract class GeoHaystackSearchResult : CommandResult
     {
         // private fields
@@ -229,7 +229,7 @@ namespace MongoDB.Driver
     /// Represents the result of a GeoHaystackSearch command.
     /// </summary>
     /// <typeparam name="TDocument">The type of the returned documents.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(GeoHaystackSearchResult<>.Serializer))]
     public class GeoHaystackSearchResult<TDocument> : GeoHaystackSearchResult
     {

@@ -209,7 +209,7 @@ namespace MongoDB.Driver.Core.Authentication
 
             private static byte[] HMAC(UTF8Encoding encoding, byte[] data, string key)
             {
-                using (var hmac = new HMACSHA1(data, true))
+                using (var hmac = new HMACSHA1(data)) //, true))
                 {
                     return hmac.ComputeHash(encoding.GetBytes(key));
                 }

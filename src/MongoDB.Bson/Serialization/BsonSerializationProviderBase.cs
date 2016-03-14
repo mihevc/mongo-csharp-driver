@@ -78,14 +78,13 @@ namespace MongoDB.Bson.Serialization
         /// </returns>
         protected virtual IBsonSerializer CreateSerializer(Type serializerType, IBsonSerializerRegistry serializerRegistry)
         {
-            var serializerTypeInfo = serializerType.GetTypeInfo();
-            var constructorInfo = serializerTypeInfo.GetConstructor(new[] { typeof(IBsonSerializerRegistry) });
+            var constructorInfo = serializerType.GetConstructor(new[] { typeof(IBsonSerializerRegistry) });
             if (constructorInfo != null)
             {
                 return (IBsonSerializer)constructorInfo.Invoke(new object[] { serializerRegistry });
             }
 
-            constructorInfo = serializerTypeInfo.GetConstructor(new Type[0]);
+            constructorInfo = serializerType.GetConstructor(new Type[0]);
             if (constructorInfo != null)
             {
                 return (IBsonSerializer)constructorInfo.Invoke(new object[0]);

@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 
@@ -690,8 +691,8 @@ namespace MongoDB.Bson.Serialization
                 if (!__typesWithRegisteredKnownTypes.Contains(nominalType))
                 {
                     // only call LookupClassMap for classes with a BsonKnownTypesAttribute
-                    var knownTypesAttribute = nominalType.GetCustomAttributes(typeof(BsonKnownTypesAttribute), false);
-                    if (knownTypesAttribute != null && knownTypesAttribute.Length > 0)
+                    var knownTypesAttribute = nominalType.GetTypeInfo().GetCustomAttributes(typeof(BsonKnownTypesAttribute), false);
+                    if (knownTypesAttribute != null && knownTypesAttribute.Count() > 0)
                     {
                         // try and force a scan of the known types
                         LookupSerializer(nominalType);

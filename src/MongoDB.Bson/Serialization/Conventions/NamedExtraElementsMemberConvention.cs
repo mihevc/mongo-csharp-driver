@@ -94,7 +94,7 @@ namespace MongoDB.Bson.Serialization.Conventions
             var classTypeInfo = classMap.ClassType.GetTypeInfo();
             foreach (var name in _names)
             {
-                var member = classTypeInfo.GetMember(name, _memberTypes, _bindingFlags).SingleOrDefault();
+                var member = classMap.ClassType.GetMember(name, _bindingFlags).SingleOrDefault(); // _memberTypes, _bindingFlags).SingleOrDefault();
 
                 if (member != null)
                 {

@@ -99,7 +99,7 @@ namespace MongoDB.Driver.Core.Authentication
             IntPtr unmanagedPassword = IntPtr.Zero;
             try
             {
-                unmanagedPassword = Marshal.SecureStringToGlobalAllocUnicode(_password);
+                unmanagedPassword = SecureStringMarshal.SecureStringToCoTaskMemUnicode(_password); //SecureStringToGlobalAllocUnicode(_password);
                 return Marshal.PtrToStringUni(unmanagedPassword);
             }
             finally

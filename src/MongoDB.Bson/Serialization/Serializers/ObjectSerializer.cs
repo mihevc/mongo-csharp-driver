@@ -160,7 +160,7 @@ namespace MongoDB.Bson.Serialization.Serializers
                     // if we're not at the top level document, or if we're using the JsonWriter
                     if (bsonWriter.State == BsonWriterState.Value || bsonWriter is JsonWriter)
                     {
-                        switch (Type.GetTypeCode(actualType))
+                        switch (actualType.GetTypeCode())
                         {
                             case TypeCode.Boolean:
                                 bsonWriter.WriteBoolean((bool)value);

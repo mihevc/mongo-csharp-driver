@@ -127,7 +127,7 @@ namespace MongoDB.Driver
         /// </summary>
         private static string GenerateDigest(SecureString secureString)
         {
-            using (var sha256 = new SHA256CryptoServiceProvider())
+            using (var sha256 = SHA256.Create()) // new SHA256CryptoServiceProvider())
             {
                 var hash = ComputeHash(sha256, new byte[0], secureString);
                 return BsonUtils.ToHexString(hash);
@@ -136,14 +136,14 @@ namespace MongoDB.Driver
 
         private static byte[] ComputeHash(HashAlgorithm algorithm, byte[] prefixBytes, SecureString secureString)
         {
-            var bstr = Marshal.SecureStringToBSTR(secureString);
+            var ptr = SecureStringMarshal.SecureStringToCoTaskMemUnicode(secureString);
             try
             {
                 var passwordChars = new char[secureString.Length];
                 var passwordCharsHandle = GCHandle.Alloc(passwordChars, GCHandleType.Pinned);
                 try
                 {
-                    Marshal.Copy(bstr, passwordChars, 0, passwordChars.Length);
+                    Marshal.Copy(ptr, passwordChars, 0, passwordChars.Length);
 
                     var passwordBytes = new byte[secureString.Length * 3]; // worst case for UTF16 to UTF8 encoding
                     var passwordBytesHandle = GCHandle.Alloc(passwordBytes, GCHandleType.Pinned);
@@ -172,7 +172,7 @@ namespace MongoDB.Driver
             }
             finally
             {
-                Marshal.ZeroFreeBSTR(bstr);
+                SecureStringMarshal.ZeroFreeCoTaskMemUnicode(ptr);
             }
         }
     }

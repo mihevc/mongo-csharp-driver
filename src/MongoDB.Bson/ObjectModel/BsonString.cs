@@ -14,6 +14,7 @@
 */
 
 using System;
+using System.Runtime.Serialization;
 using MongoDB.Bson.IO;
 
 namespace MongoDB.Bson
@@ -21,7 +22,7 @@ namespace MongoDB.Bson
     /// <summary>
     /// Represents a BSON string value.
     /// </summary>
-    [Serializable]
+    [DataContract]
     public class BsonString : BsonValue, IComparable<BsonString>, IEquatable<BsonString>
     {
         // private static fields

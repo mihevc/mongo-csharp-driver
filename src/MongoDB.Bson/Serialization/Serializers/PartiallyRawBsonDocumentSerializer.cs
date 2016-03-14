@@ -14,6 +14,7 @@
 */
 
 using System;
+using System.Reflection;
 using MongoDB.Bson.IO;
 
 namespace MongoDB.Bson.Serialization.Serializers
@@ -43,7 +44,7 @@ namespace MongoDB.Bson.Serialization.Serializers
             {
                 throw new ArgumentNullException("rawSerializer");
             }
-            if (!typeof(BsonValue).IsAssignableFrom(rawSerializer.ValueType))
+            if (!typeof(BsonValue).GetTypeInfo().IsAssignableFrom(rawSerializer.ValueType.GetTypeInfo()))
             {
                 throw new ArgumentException("RawSerializer ValueType must be a BsonValue.", "rawSerializer");
             }

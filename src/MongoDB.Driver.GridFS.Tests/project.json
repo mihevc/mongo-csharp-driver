@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0-*",
+  "description": "MongoDB Drive GridFS",
+  "authors": [ "MongoDB" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "commands": {
+    "MongoDB.Driver.GridFS.Tests": "MongoDB.Driver.GridFS.Tests"
+  },
+  "frameworks": {
+    "dnxcore50": {
+      "dependencies": {
+      }
+    }
+  },
+  "dependencies": {
+    "MongoDB.Driver.GridFS": "1.0.0-*",
+    "FluentAssertions": "4.2.2",
+    "NUnit": "3.2.0",
+    "NUnitLite": "3.2.0",
+    "NSubstitute": "1.0.0-*",
+    "Castle.Core": "3.3.4-*",
+    "MongoDB.Driver.Tests": "1.0.0-*"
+  },
+  "exclude": [
+  ],
+  "resource": [
+    "Specifications/gridfs/tests/*.*"
+  ],
+  "compilationOptions": {
+    "define": ["COREFX"]
+  }
+}

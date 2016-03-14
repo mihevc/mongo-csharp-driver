@@ -26,7 +26,7 @@ namespace MongoDB.Driver
     /// Model for inserting a single document.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public sealed class InsertOneModel<TDocument> : WriteModel<TDocument>
     {
         // fields

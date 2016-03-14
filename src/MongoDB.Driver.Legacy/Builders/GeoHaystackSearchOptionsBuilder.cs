@@ -74,7 +74,7 @@ namespace MongoDB.Driver.Builders
     /// <summary>
     /// A builder for the options of the GeoHaystackSearch command.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [Obsolete("Use GeoHaystackSearchArgs instead.")]
     [BsonSerializer(typeof(GeoHaystackSearchOptionsBuilder.Serializer))]
     public class GeoHaystackSearchOptionsBuilder : BuilderBase, IMongoGeoHaystackSearchOptions
@@ -199,7 +199,7 @@ namespace MongoDB.Driver.Builders
     /// A builder for the options of the GeoHaystackSearch command.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [Obsolete("Use GeoHaystackSearchArgs instead.")]
     [BsonSerializer(typeof(GeoHaystackSearchOptionsBuilder<>.Serializer))]
     public class GeoHaystackSearchOptionsBuilder<TDocument> : BuilderBase, IMongoGeoHaystackSearchOptions

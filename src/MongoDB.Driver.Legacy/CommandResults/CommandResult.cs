@@ -22,7 +22,7 @@ namespace MongoDB.Driver
     /// <summary>
     /// Represents the result of a command (there are also subclasses for various commands).
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(CommandResultSerializer<CommandResult>))]
     public class CommandResult
     {

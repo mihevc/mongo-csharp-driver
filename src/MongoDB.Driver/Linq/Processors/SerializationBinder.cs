@@ -56,7 +56,25 @@ namespace MongoDB.Driver.Linq.Processors
                 return replacement;
             }
 
-            return base.Visit(node);
+            if (node.GetType().GetTypeInfo().IsGenericType && node.GetType().Name == "Expression`1")
+            {
+                // we should just be able to calld base.Visit(node).  
+                //  This worked before converting to .netcore.
+                //  When calling with a generic instance of Expression it throws a MethodNotFoundError when
+                //   trying to call into VisitLambda<T>();
+                //  This was the work around for now.  It's not idea since reflection will be slower.
+                var type = node.GetType();
+                var updateMethod = type.GetMethod("Update");
+                var bodyProperty = type.GetProperty("Body");
+                var paramProperties = type.GetProperty("Parameters");
+
+                var visitResult = Visit((Expression)bodyProperty.GetValue(node));
+                return (Expression)updateMethod.Invoke(node, new object[] {visitResult, (System.Collections.ObjectModel.ReadOnlyCollection<ParameterExpression>)paramProperties.GetValue(node)});
+            }
+            else
+            {
+                return base.Visit(node);
+            }
         }
 
         protected override Expression VisitBinary(BinaryExpression node)
@@ -267,7 +285,7 @@ namespace MongoDB.Driver.Linq.Processors
             }
 
             var indexExpression = methodCallExpression.Arguments[0];
-            switch (Type.GetTypeCode(indexExpression.Type))
+            switch (GetTypeCode(indexExpression.Type))
             {
                 case TypeCode.Int16:
                 case TypeCode.Int32:
@@ -340,5 +358,39 @@ namespace MongoDB.Driver.Linq.Processors
 
             return node;
         }
+
+        public static TypeCode GetTypeCode(Type type)
+        {
+            if (type == null) return TypeCode.Empty;
+            TypeCode result;
+            if (typeCodeLookup.TryGetValue(type, out result)) return result;
+
+            if (type.GetTypeInfo().IsEnum)
+            {
+                type = Enum.GetUnderlyingType(type);
+                if (typeCodeLookup.TryGetValue(type, out result)) return result;
+            }
+            return TypeCode.Object;
+        }
+
+        static readonly Dictionary<Type, TypeCode> typeCodeLookup = new Dictionary<Type, TypeCode>
+        {
+            {typeof(bool), TypeCode.Boolean },
+            {typeof(byte), TypeCode.Byte },
+            {typeof(char), TypeCode.Char},
+            {typeof(DateTime), TypeCode.DateTime},
+            {typeof(decimal), TypeCode.Decimal},
+            {typeof(double), TypeCode.Double },
+            {typeof(short), TypeCode.Int16 },
+            {typeof(int), TypeCode.Int32 },
+            {typeof(long), TypeCode.Int64 },
+            {typeof(object), TypeCode.Object},
+            {typeof(sbyte), TypeCode.SByte },
+            {typeof(float), TypeCode.Single },
+            {typeof(string), TypeCode.String },
+            {typeof(ushort), TypeCode.UInt16 },
+            {typeof(uint), TypeCode.UInt32 },
+            {typeof(ulong), TypeCode.UInt64 },
+        };
     }
 }

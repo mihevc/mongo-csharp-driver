@@ -22,7 +22,7 @@ namespace MongoDB.Driver.Core.Authentication.Sspi
     /// <summary>
     /// Thrown from a win32 wrapped operation.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class Win32Exception : Exception
     {
         /// <summary>

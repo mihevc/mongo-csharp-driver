@@ -22,7 +22,7 @@ namespace MongoDB.Driver.GridFS
     /// <summary>
     /// Represents setting for GridFS.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class MongoGridFSSettings : IEquatable<MongoGridFSSettings>
     {
         // private static fields

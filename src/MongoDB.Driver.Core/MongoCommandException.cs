@@ -30,7 +30,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB command exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoCommandException : MongoServerException
     {

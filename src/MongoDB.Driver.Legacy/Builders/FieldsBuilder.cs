@@ -108,7 +108,7 @@ namespace MongoDB.Driver.Builders
     /// <summary>
     /// A builder for specifying which fields of a document the server should return.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(FieldsBuilder.Serializer))]
     public class FieldsBuilder : BuilderBase, IMongoFields
     {
@@ -309,7 +309,7 @@ namespace MongoDB.Driver.Builders
     /// A builder for specifying which fields of a document the server should return.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(FieldsBuilder<>.Serializer))]
     public class FieldsBuilder<TDocument> : BuilderBase, IMongoFields
     {

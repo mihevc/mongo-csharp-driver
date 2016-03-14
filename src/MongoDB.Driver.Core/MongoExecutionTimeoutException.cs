@@ -23,7 +23,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB execution timeout exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoExecutionTimeoutException : MongoServerException
     {

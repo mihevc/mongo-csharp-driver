@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0-*",
+  "description": "MongoDB BSON Tests",
+  "authors": [ "MongoDB" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "dnxcore50": {
+      "dependencies": {
+        "System.Runtime.Serialization.Primitives": "4.1.0-beta-23516",
+        "Microsoft.CSharp": "4.0.1-beta-23516"
+      }
+    }
+  },
+  "commands": {
+    "MongoDB.Bson.Tests": "MongoDB.Bson.Tests"
+  },
+  "exclude": [
+  ],
+  "compile": [
+  ],
+  "compilationOptions": {
+    "define": [ "COREFX" ]
+  },
+  "dependencies": {
+    "Castle.Core": "3.3.4-*",
+    "FluentAssertions": "4.2.2",
+    "MongoDB.Bson": "1.0.0-*",
+    "MongoDB.Bson.TestHelpers": "1.0.0-*",
+    "NSubstitute": "1.0.0-*",
+    "NUnit": "3.2.0",
+    "NUnitLite": "3.2.0",
+    "System.Runtime.Serialization.Xml": "4.1.0-beta-23516"
+  }
+}

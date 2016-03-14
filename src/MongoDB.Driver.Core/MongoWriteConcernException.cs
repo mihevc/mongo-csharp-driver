@@ -27,7 +27,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB write concern exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoWriteConcernException : MongoCommandException
     {

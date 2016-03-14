@@ -35,7 +35,7 @@ namespace MongoDB.Driver.Core.Operations
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _databaseNamespace = CoreTestConfiguration.GetDatabaseNamespaceForTestFixture();
+            _databaseNamespace = CoreTestConfiguration.GetDatabaseNamespaceForTestFixture(typeof(DropDatabaseOperationTests));
             _messageEncoderSettings = CoreTestConfiguration.MessageEncoderSettings;
         }
 

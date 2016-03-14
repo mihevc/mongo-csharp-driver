@@ -74,14 +74,15 @@ namespace MongoDB.Driver
                 return "";
             }
 
-            var bstr = Marshal.SecureStringToBSTR(secureString);
+            var ptr = SecureStringMarshal.SecureStringToCoTaskMemUnicode(secureString); // Marshal.SecureStringToBSTR(secureString);
             try
             {
-                return Marshal.PtrToStringBSTR(bstr);
+                return Marshal.PtrToStringUni(ptr);
             }
             finally
             {
-                Marshal.ZeroFreeBSTR(bstr);
+                SecureStringMarshal.ZeroFreeCoTaskMemUnicode(ptr);
+                //Marshal.ZeroFreeBSTR(bstr);
             }
         }
     }

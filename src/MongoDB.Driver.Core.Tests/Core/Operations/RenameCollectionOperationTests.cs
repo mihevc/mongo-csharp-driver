@@ -33,7 +33,7 @@ namespace MongoDB.Driver.Core.Operations
         // setup methods
         public override void OneTimeSetUp()
         {
-            _databaseNamespace = CoreTestConfiguration.GetDatabaseNamespaceForTestFixture();
+            _databaseNamespace = CoreTestConfiguration.GetDatabaseNamespaceForTestFixture(typeof(RenameCollectionOperationTests));
             _collectionNamespace = new CollectionNamespace(_databaseNamespace, "old");
             _newCollectionNamespace = new CollectionNamespace(_databaseNamespace, "new");
         }

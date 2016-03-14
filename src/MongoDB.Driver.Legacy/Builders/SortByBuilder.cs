@@ -75,7 +75,7 @@ namespace MongoDB.Driver.Builders
     /// <summary>
     /// A builder for specifying a sort order.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(SortByBuilder.Serializer))]
     public class SortByBuilder : BuilderBase, IMongoSortBy
     {
@@ -197,7 +197,7 @@ namespace MongoDB.Driver.Builders
     /// A builder for specifying a sort order.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(SortByBuilder<>.Serializer))]
     public class SortByBuilder<TDocument> : BuilderBase, IMongoSortBy
     {

@@ -73,19 +73,19 @@ namespace MongoDB.Driver.GridFS
         }
 
         // public methods
-        public override void Close()
-        {
-            Close(CancellationToken.None);
-        }
+        //public override void Close()
+        //{
+        //    Close(CancellationToken.None);
+        //}
 
         public override void Close(CancellationToken cancellationToken)
         {
-            base.Close();
+            Dispose();
         }
 
         public override Task CloseAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            base.Close();
+            Dispose();
             return Task.FromResult(true);
         }
 

@@ -26,7 +26,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB not primary exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoNotPrimaryException : MongoServerException
     {

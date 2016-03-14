@@ -119,7 +119,7 @@ namespace MongoDB.Bson.Serialization.Conventions
         {
             var classTypeInfo = classType.GetTypeInfo();
             var bindingAttr = BindingFlags.IgnoreCase | BindingFlags.Instance;
-            var memberInfos = classTypeInfo.GetMember(parameter.Name, memberType, bindingAttr | visibility);
+            var memberInfos = classType.GetMember(parameter.Name, bindingAttr | visibility); //(parameter.Name, memberType, bindingAttr | visibility);
             if (memberInfos.Length == 1 && GetMemberType(memberInfos[0]) == parameter.ParameterType)
             {
                 return memberInfos[0];

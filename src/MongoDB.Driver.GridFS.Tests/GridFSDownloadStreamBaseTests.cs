@@ -65,8 +65,8 @@ namespace MongoDB.Driver.GridFS.Tests
             }
             else
             {
-                subject.Close();
-                subject.Close();
+                //subject.Close();
+                subject.Dispose();
             }
         }
 
@@ -82,7 +82,7 @@ namespace MongoDB.Driver.GridFS.Tests
             }
             else
             {
-                subject.Close();
+                subject.Dispose();
             }
 
             subject._disposed().Should().Be(true);

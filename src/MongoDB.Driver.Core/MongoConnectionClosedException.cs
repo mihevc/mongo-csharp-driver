@@ -23,7 +23,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB connection failed exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoConnectionClosedException : MongoConnectionException
     {

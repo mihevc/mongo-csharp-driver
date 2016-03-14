@@ -14,13 +14,14 @@
 */
 
 using System;
+using System.Runtime.Serialization;
 
 namespace MongoDB.Bson
 {
     /// <summary>
     /// Represents the type of a BSON element.
     /// </summary>
-    [Serializable]
+    [DataContract]
     public enum BsonType
     {
         /// <summary>

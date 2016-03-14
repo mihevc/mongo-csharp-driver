@@ -15,7 +15,6 @@
 
 using System.IO;
 using System.Net;
-using System.Runtime.Serialization.Formatters.Binary;
 using FluentAssertions;
 using MongoDB.Driver.Core.Clusters;
 using MongoDB.Driver.Core.Servers;

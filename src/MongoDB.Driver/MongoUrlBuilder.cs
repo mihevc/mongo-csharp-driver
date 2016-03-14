@@ -31,7 +31,7 @@ namespace MongoDB.Driver
     /// Represents URL style connection strings. This is the recommended connection string style, but see also
     /// MongoConnectionStringBuilder if you wish to use .NET style connection strings.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class MongoUrlBuilder
     {
         // private fields

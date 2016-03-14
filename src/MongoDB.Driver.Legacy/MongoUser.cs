@@ -20,7 +20,7 @@ namespace MongoDB.Driver
     /// <summary>
     /// Represents a MongoDB user.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [Obsolete("Use the new user management commands instead.")]
     public class MongoUser : IEquatable<MongoUser>
     {

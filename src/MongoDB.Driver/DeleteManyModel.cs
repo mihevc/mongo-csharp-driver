@@ -27,7 +27,7 @@ namespace MongoDB.Driver
     /// Model for deleting many documents.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public sealed class DeleteManyModel<TDocument> : WriteModel<TDocument>
     {
         // fields

@@ -23,7 +23,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB duplicate key exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoDuplicateKeyException : MongoWriteConcernException
     {

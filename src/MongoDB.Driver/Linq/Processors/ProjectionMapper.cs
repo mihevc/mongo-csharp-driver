@@ -112,10 +112,7 @@ namespace MongoDB.Driver.Linq.Processors
                 }
                 else
                 {
-                    var members = type.GetTypeInfo().GetMember(
-                        parameter.Name,
-                        MemberTypes.Field | MemberTypes.Property,
-                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
+                    var members = type.GetMember(parameter.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.IgnoreCase);
 
                     if (members.Length != 1)
                     {

@@ -20,7 +20,7 @@ namespace MongoDB.Bson
     /// <summary>
     /// Represents a BSON JavaScript value.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class BsonJavaScript : BsonValue, IComparable<BsonJavaScript>, IEquatable<BsonJavaScript>
     {
         // private fields

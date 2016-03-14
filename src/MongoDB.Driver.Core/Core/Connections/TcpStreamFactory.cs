@@ -133,11 +133,13 @@ namespace MongoDB.Driver.Core.Connections
                     if (dnsEndPoint != null)
                     {
                         // mono doesn't support DnsEndPoint in its BeginConnect method.
-                        await Task.Factory.FromAsync(socket.BeginConnect(dnsEndPoint.Host, dnsEndPoint.Port, null, null), socket.EndConnect).ConfigureAwait(false);
+                        await socket.ConnectAsync(dnsEndPoint.Host, dnsEndPoint.Port).ConfigureAwait(false);
+                        //await Task.Factory.FromAsync(socket.BeginConnect(dnsEndPoint.Host, dnsEndPoint.Port, null, null), socket.EndConnect).ConfigureAwait(false);
                     }
                     else
                     {
-                        await Task.Factory.FromAsync(socket.BeginConnect(endPoint, null, null), socket.EndConnect).ConfigureAwait(false);
+                        await socket.ConnectAsync(endPoint).ConfigureAwait(false);
+                        //await Task.Factory.FromAsync(socket.BeginConnect(endPoint, null, null), socket.EndConnect).ConfigureAwait(false);
                     }
                     connected = true;
                     return;

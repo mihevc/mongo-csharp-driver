@@ -24,7 +24,7 @@ namespace MongoDB.Driver.GridFS
     /// Represents a GridFSChunk exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class GridFSChunkException : GridFSException
     {

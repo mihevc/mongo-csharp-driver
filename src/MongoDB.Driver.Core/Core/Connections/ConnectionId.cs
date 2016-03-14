@@ -33,7 +33,7 @@ namespace MongoDB.Driver.Core.Connections
     /// <summary>
     /// Represents a connection identifier.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public sealed class ConnectionId : IEquatable<ConnectionId>
     {
         // fields

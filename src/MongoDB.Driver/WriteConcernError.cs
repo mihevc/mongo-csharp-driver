@@ -21,7 +21,7 @@ namespace MongoDB.Driver
     /// <summary>
     /// Represents the details of a write concern error.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class WriteConcernError
     {
         // private fields

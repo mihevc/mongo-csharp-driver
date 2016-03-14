@@ -141,7 +141,7 @@ namespace MongoDB.Driver
 
             __traceSource = new TraceSource("mongodb-tests", defaultLevel);
             __traceSource.Listeners.Clear(); // remove the default listener
-            var listener = new ConsoleTraceListener();
+            var listener = new DefaultTraceListener();// ConsoleTraceListener();
             listener.TraceOutputOptions = TraceOptions.DateTime;
             __traceSource.Listeners.Add(listener);
             return builder.TraceWith(__traceSource);
@@ -188,16 +188,15 @@ namespace MongoDB.Driver
             return cluster;
         }
 
-        public static CollectionNamespace GetCollectionNamespaceForTestFixture()
+        public static CollectionNamespace GetCollectionNamespaceForTestFixture(Type testFixtureType)
         {
-            var testFixtureType = GetTestFixtureTypeFromCallStack();
             var collectionName = TruncateCollectionNameIfTooLong(__databaseNamespace, testFixtureType.Name);
             return new CollectionNamespace(__databaseNamespace, collectionName);
         }
 
-        public static CollectionNamespace GetCollectionNamespaceForTestMethod()
+        public static CollectionNamespace GetCollectionNamespaceForTestMethod(MethodInfo testMethodInfo)
         {
-            var testMethodInfo = GetTestMethodInfoFromCallStack();
+            //var testMethodInfo = GetTestMethodInfoFromCallStack();
             var collectionName = TruncateCollectionNameIfTooLong(__databaseNamespace, testMethodInfo.DeclaringType.Name + "-" + testMethodInfo.Name);
             return new CollectionNamespace(__databaseNamespace, collectionName);
         }
@@ -218,9 +217,9 @@ namespace MongoDB.Driver
             return new DatabaseNamespace("Tests" + timestamp);
         }
 
-        public static DatabaseNamespace GetDatabaseNamespaceForTestFixture()
+        public static DatabaseNamespace GetDatabaseNamespaceForTestFixture(Type testFixtureType)
         {
-            var testFixtureType = GetTestFixtureTypeFromCallStack();
+            //var testFixtureType = GetTestFixtureTypeFromCallStack();
             var databaseName = TruncateDatabaseNameIfTooLong(__databaseNamespace.DatabaseName + "-" + testFixtureType.Name);
             if (databaseName.Length >= 64)
             {
@@ -282,48 +281,51 @@ namespace MongoDB.Driver
             }
         }
 
-        private static Type GetTestFixtureTypeFromCallStack()
-        {
-            var stackTrace = new StackTrace();
-            for (var index = 0; index < stackTrace.FrameCount; index++)
-            {
-                var frame = stackTrace.GetFrame(index);
-                var methodInfo = frame.GetMethod();
-                var declaringType = methodInfo.DeclaringType;
-                var testFixtureAttribute = declaringType.GetCustomAttribute<TestFixtureAttribute>(inherit: false);
-                if (testFixtureAttribute != null)
-                {
-                    return declaringType;
-                }
-            }
+        //private static Type GetTestFixtureTypeFromCallStack()
+        //{
+        //    var trace = Environment.StackTrace;
+        //    var stackTrace = new StackTrace(null, false);
+        //    var frames = stackTrace.GetFrames();
+        //    for (var index = 0; index < frames.Length; index++)
+        //    {
+        //        var frame = frames[index];
+        //        var methodInfo = frame.GetMethod();
+        //        var declaringType = methodInfo.DeclaringType;
+        //        var testFixtureAttribute = declaringType.GetTypeInfo().GetCustomAttribute<TestFixtureAttribute>(inherit: false);
+        //        if (testFixtureAttribute != null)
+        //        {
+        //            return declaringType;
+        //        }
+        //    }
 
-            throw new Exception("No [TestFixture] found on the call stack.");
-        }
+        //    throw new Exception("No [TestFixture] found on the call stack.");
+        //}
 
-        private static MethodInfo GetTestMethodInfoFromCallStack()
-        {
-            var stackTrace = new StackTrace();
-            for (var index = 0; index < stackTrace.FrameCount; index++)
-            {
-                var frame = stackTrace.GetFrame(index);
-                var methodInfo = frame.GetMethod() as MethodInfo;
-                if (methodInfo != null)
-                {
-                    var testAttribute = methodInfo.GetCustomAttribute<TestAttribute>(inherit: false);
-                    if (testAttribute != null)
-                    {
-                        return methodInfo;
-                    }
-                    var testCaseAttribute = methodInfo.GetCustomAttribute<TestCaseAttribute>(inherit: false);
-                    if (testCaseAttribute != null)
-                    {
-                        return methodInfo;
-                    }
-                }
-            }
+        //private static MethodInfo GetTestMethodInfoFromCallStack()
+        //{
+        //    var stackTrace = new StackTrace(null, false);
+        //    var frames = stackTrace.GetFrames();
+        //    for (var index = 0; index < frames.Length; index++)
+        //    {
+        //        var frame = frames[index];
+        //        var methodInfo = frame.GetMethod() as MethodInfo;
+        //        if (methodInfo != null)
+        //        {
+        //            var testAttribute = methodInfo.GetCustomAttribute<TestAttribute>(inherit: false);
+        //            if (testAttribute != null)
+        //            {
+        //                return methodInfo;
+        //            }
+        //            var testCaseAttribute = methodInfo.GetCustomAttribute<TestCaseAttribute>(inherit: false);
+        //            if (testCaseAttribute != null)
+        //            {
+        //                return methodInfo;
+        //            }
+        //        }
+        //    }
 
-            throw new Exception("No [TestFixture] found on the call stack.");
-        }
+        //    throw new Exception("No [TestFixture] found on the call stack.");
+        //}
 
         private static string TruncateCollectionNameIfTooLong(DatabaseNamespace databaseNamespace, string collectionName)
         {

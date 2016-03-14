@@ -21,7 +21,7 @@ namespace MongoDB.Bson
     /// Indicates that an attribute restricted to one member has been applied to multiple members.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class DuplicateBsonMemberMapAttributeException : BsonException
     {

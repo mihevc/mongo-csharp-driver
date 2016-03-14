@@ -54,7 +54,7 @@ namespace MongoDB.Driver.Builders
     /// <summary>
     /// A builder for specifying what the GroupBy command should group by.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(GroupByBuilder.Serializer))]
     public class GroupByBuilder : BuilderBase, IMongoGroupBy
     {

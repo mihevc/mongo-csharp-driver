@@ -27,7 +27,7 @@ namespace MongoDB.Driver.Core.Servers
     /// Represents a server identifier.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public sealed class ServerId : IEquatable<ServerId>, ISerializable
 #else
     public sealed class ServerId : IEquatable<ServerId>

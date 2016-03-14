@@ -14,28 +14,36 @@
 */
 
 using System;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
+//using System.Runtime.Remoting.Messaging;
 using MongoDB.Driver.Core.Misc;
 
 namespace MongoDB.Driver.Core.Events
 {
     internal static class EventContext
     {
-        private static readonly string __findBatchSize = "__MONGODB.FIND_OPERATION_BATCH_SIZE__";
-        private static readonly string __findLimit = "__MONGODB.FIND_OPERATION_LIMIT__";
-        private static readonly string __killCursorsNamespace = "__MONGODB.KILL_CURSORS_OPERATION_COLLECTION_NAMESPACE__";
-        private static readonly string __operationId = "__MONGODB.OPERATION_ID__";
+        //private static readonly string __findBatchSize = "__MONGODB.FIND_OPERATION_BATCH_SIZE__";
+        //private static readonly string __findLimit = "__MONGODB.FIND_OPERATION_LIMIT__";
+        //private static readonly string __killCursorsNamespace = "__MONGODB.KILL_CURSORS_OPERATION_COLLECTION_NAMESPACE__";
+        //private static readonly string __operationId = "__MONGODB.OPERATION_ID__";
+
+        private static readonly AsyncLocal<int?> __findBatchSizeValue = new AsyncLocal<int?>();
+        private static readonly AsyncLocal<int?> __findLimitValue = new AsyncLocal<int?>();
+        private static readonly AsyncLocal<CollectionNamespace> __killCursorsNamespaceValue = new AsyncLocal<CollectionNamespace>();
+        private static readonly AsyncLocal<long?> __operationIdValue = new AsyncLocal<long?>();
 
         public static int? FindOperationBatchSize
         {
             get
             {
-                var value = CallContext.LogicalGetData(__findBatchSize);
-                return (int?)value;
+                //var value = CallContext.LogicalGetData(__findBatchSize);
+                //return (int?)value;
+                return __findBatchSizeValue.Value;
             }
             private set
             {
-                CallContext.LogicalSetData(__findBatchSize, value);
+                //CallContext.LogicalSetData(__findBatchSize, value);
+                __findBatchSizeValue.Value = value;
             }
         }
 
@@ -43,12 +51,14 @@ namespace MongoDB.Driver.Core.Events
         {
             get
             {
-                var value = CallContext.LogicalGetData(__findLimit);
-                return (int?)value;
+                //var value = CallContext.LogicalGetData(__findLimit);
+                //return (int?)value;
+                return __findLimitValue.Value;
             }
             private set
             {
-                CallContext.LogicalSetData(__findLimit, value);
+                //CallContext.LogicalSetData(__findLimit, value);
+                __findLimitValue.Value = value;
             }
         }
 
@@ -56,12 +66,15 @@ namespace MongoDB.Driver.Core.Events
         {
             get
             {
-                var value = CallContext.LogicalGetData(__killCursorsNamespace);
-                return (CollectionNamespace)value;
+                //var value = CallContext.LogicalGetData(__killCursorsNamespace);
+                //return (CollectionNamespace)value;
+                return __killCursorsNamespaceValue.Value;
+
             }
             private set
             {
-                CallContext.LogicalSetData(__killCursorsNamespace, value);
+                //CallContext.LogicalSetData(__killCursorsNamespace, value);
+                __killCursorsNamespaceValue.Value = value;
             }
         }
 
@@ -69,12 +82,14 @@ namespace MongoDB.Driver.Core.Events
         {
             get
             {
-                var value = CallContext.LogicalGetData(__operationId);
-                return (long?)value;
+                //var value = CallContext.LogicalGetData(__operationId);
+                //return (long?)value;
+                return __operationIdValue.Value;
             }
             private set
             {
-                CallContext.LogicalSetData(__operationId, value);
+                //CallContext.LogicalSetData(__operationId, value);
+                __operationIdValue.Value = value;
             }
         }
 
@@ -118,14 +133,15 @@ namespace MongoDB.Driver.Core.Events
         {
             public FindOperationDisposer(int? batchSize, int? limit)
             {
-                EventContext.FindOperationBatchSize = batchSize;
-                EventContext.FindOperationLimit = limit;
+                FindOperationBatchSize = batchSize;
+                FindOperationLimit = limit;
             }
 
             public void Dispose()
             {
-                EventContext.FindOperationBatchSize = null;
-                EventContext.FindOperationLimit = null;
+
+                FindOperationBatchSize = null;
+                FindOperationLimit = null;
             }
         }
 
@@ -133,12 +149,12 @@ namespace MongoDB.Driver.Core.Events
         {
             public KillCursorsOperationDisposer(CollectionNamespace collectionNamespace)
             {
-                EventContext.KillCursorsCollectionNamespace = collectionNamespace;
+                KillCursorsCollectionNamespace = collectionNamespace;
             }
 
             public void Dispose()
             {
-                EventContext.KillCursorsCollectionNamespace = null;
+                KillCursorsCollectionNamespace = null;
             }
         }
 
@@ -146,14 +162,15 @@ namespace MongoDB.Driver.Core.Events
         {
             public OperationIdDisposer(long operationId)
             {
-                EventContext.OperationId = operationId;
+                OperationId = operationId;
             }
 
             public void Dispose()
             {
-                EventContext.OperationId = null;
+                OperationId = null;
             }
         }
 
     }
 }
+

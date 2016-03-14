@@ -56,7 +56,7 @@ namespace MongoDB.Driver
     /// <summary>
     /// Represents the results of the collection stats command.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(CommandResultSerializer<CollectionStatsResult>))]
     public class CollectionStatsResult : CommandResult
     {

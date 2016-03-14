@@ -710,7 +710,7 @@ namespace MongoDB.Driver.Builders
     /// <summary>
     /// A builder for creating update modifiers.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(UpdateBuilder.Serializer))]
     public class UpdateBuilder : BuilderBase, IMongoUpdate
     {
@@ -2265,7 +2265,7 @@ namespace MongoDB.Driver.Builders
     /// A builder for creating update modifiers.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(UpdateBuilder<>.Serializer))]
     public class UpdateBuilder<TDocument> : BuilderBase, IMongoUpdate
     {

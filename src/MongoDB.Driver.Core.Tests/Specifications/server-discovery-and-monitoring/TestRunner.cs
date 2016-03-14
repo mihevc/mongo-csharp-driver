@@ -27,6 +27,7 @@ using MongoDB.Driver.Core.Events;
 using MongoDB.Driver.Core.Helpers;
 using MongoDB.Driver.Core.Misc;
 using MongoDB.Driver.Core.Servers;
+using MongoDB.Driver.Core.Tests;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -192,9 +193,8 @@ namespace MongoDB.Driver.Specifications.server_discovery_and_monitoring
         {
             public static IEnumerable<ITestCaseData> GetTestCases()
             {
-                const string prefix = "MongoDB.Driver.Specifications.server_discovery_and_monitoring.tests.";
-                return Assembly
-                    .GetExecutingAssembly()
+                const string prefix = "MongoDB.Driver.Core.Tests.Specifications.server_discovery_and_monitoring.tests.";
+                return typeof(Program).GetTypeInfo().Assembly
                     .GetManifestResourceNames()
                     .Where(path => path.StartsWith(prefix) && path.EndsWith(".json"))
                     .Select(path =>
@@ -212,7 +212,7 @@ namespace MongoDB.Driver.Specifications.server_discovery_and_monitoring
 
             private static BsonDocument ReadDefinition(string path)
             {
-                using (var definitionStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path))
+                using (var definitionStream = typeof(Program).GetTypeInfo().Assembly.GetManifestResourceStream(path))
                 using (var definitionStringReader = new StreamReader(definitionStream))
                 {
                     var definitionString = definitionStringReader.ReadToEnd();

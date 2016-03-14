@@ -20,7 +20,7 @@ namespace MongoDB.Bson
     /// <summary>
     /// Represents the BSON undefined value.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class BsonUndefined : BsonValue, IComparable<BsonUndefined>, IEquatable<BsonUndefined>
     {
         // private static fields

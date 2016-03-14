@@ -22,7 +22,7 @@ namespace MongoDB.Driver
     /// <summary>
     /// Represents the result of the database stats command.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     [BsonSerializer(typeof(CommandResultSerializer<DatabaseStatsResult>))]
     public class DatabaseStatsResult : CommandResult
     {

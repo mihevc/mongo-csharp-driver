@@ -22,7 +22,7 @@ namespace MongoDB.Bson
     /// Represents a BSON exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class BsonException : Exception
     {

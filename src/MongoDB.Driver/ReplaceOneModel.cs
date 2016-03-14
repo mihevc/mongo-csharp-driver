@@ -27,7 +27,7 @@ namespace MongoDB.Driver
     /// Model for replacing a single document.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public sealed class ReplaceOneModel<TDocument> : WriteModel<TDocument>
     {
         // fields

@@ -14,6 +14,7 @@
 */
 
 using System;
+using System.Linq;
 using System.Reflection;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -39,9 +40,9 @@ namespace MongoDB.Bson.Serialization
             }
 
             var serializerAttributes = typeInfo.GetCustomAttributes(typeof(BsonSerializerAttribute), false); // don't inherit
-            if (serializerAttributes.Length == 1)
+            if (serializerAttributes.Count() == 1)
             {
-                var serializerAttribute = (BsonSerializerAttribute)serializerAttributes[0];
+                var serializerAttribute = (BsonSerializerAttribute)serializerAttributes.First();
                 return serializerAttribute.CreateSerializer(type);
             }
 

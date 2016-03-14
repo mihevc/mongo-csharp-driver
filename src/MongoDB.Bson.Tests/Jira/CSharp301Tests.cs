@@ -61,7 +61,7 @@ namespace MongoDB.Bson.Tests.Jira
         {
             var c = new C { Id = 1, Obj = new Hashtable { } };
             var json = c.ToJson();
-            var expected = "{ '_id' : 1, 'Obj' : { '_t' : 'System.Collections.Hashtable', '_v' : { } } }".Replace("'", "\"");
+            var expected = "{ \"_id\" : 1, \"Obj\" : { \"_t\" : \"System.Collections.Hashtable, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : { } } }";
             Assert.AreEqual(expected, json);
 
             var r = BsonSerializer.Deserialize<C>(json);
@@ -74,7 +74,7 @@ namespace MongoDB.Bson.Tests.Jira
         {
             var c = new C { Id = 1, Obj = new Hashtable { { "x", 1 } } };
             var json = c.ToJson();
-            var expected = "{ '_id' : 1, 'Obj' : { '_t' : 'System.Collections.Hashtable', '_v' : { 'x' : 1 } } }".Replace("'", "\"");
+            var expected = "{ \"_id\" : 1, \"Obj\" : { \"_t\" : \"System.Collections.Hashtable, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : { \"x\" : 1 } } }";
             Assert.AreEqual(expected, json);
 
             var r = BsonSerializer.Deserialize<C>(json);

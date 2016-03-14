@@ -24,6 +24,7 @@ using FluentAssertions;
 using MongoDB.Bson;
 using MongoDB.Driver.Core.Configuration;
 using MongoDB.Driver.Core.Misc;
+using MongoDB.Driver.Core.Tests;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
@@ -141,11 +142,12 @@ namespace MongoDB.Driver.Specifications.connection_string
 
             public static IEnumerable<ITestCaseData> GetTestCases()
             {
-                const string prefix = "MongoDB.Driver.Specifications.connection_string.tests.";
-                return Assembly
-                    .GetExecutingAssembly()
+                const string prefix = "MongoDB.Driver.Core.Tests.Specifications.connection_string.tests.";
+                var resources = typeof(Program).GetTypeInfo().Assembly
                     .GetManifestResourceNames()
-                    .Where(path => path.StartsWith(prefix) && path.EndsWith(".json"))
+                    .Where(path => path.StartsWith(prefix) && path.EndsWith(".json"));
+
+                var results = resources
                     .SelectMany(path =>
                     {
                         var definition = ReadDefinition(path);
@@ -166,11 +168,13 @@ namespace MongoDB.Driver.Specifications.connection_string
                         }
                         return list;
                     });
+
+                return results;
             }
 
             private static BsonDocument ReadDefinition(string path)
             {
-                using (var definitionStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path))
+                using (var definitionStream = typeof(Program).GetTypeInfo().Assembly.GetManifestResourceStream(path))
                 using (var definitionStringReader = new StreamReader(definitionStream))
                 {
                     var definitionString = definitionStringReader.ReadToEnd();

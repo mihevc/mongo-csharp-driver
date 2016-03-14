@@ -28,7 +28,7 @@ namespace MongoDB.Bson
     /// <summary>
     /// Represents a BSON document.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class BsonDocument : BsonValue, IComparable<BsonDocument>, IConvertibleToBsonDocument, IEnumerable<BsonElement>, IEquatable<BsonDocument>
     {
         // constants

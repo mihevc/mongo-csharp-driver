@@ -19,12 +19,11 @@ using NUnit.Framework.Interfaces;
 
 namespace MongoDB.Bson.TestHelpers
 {
-    [AttributeUsage(AttributeTargets.Method)]
+    //[AttributeUsage(AttributeTargets.Method)]
     public class Requires64BitProcessAttribute : CategoryAttribute, ITestAction
     {
         // constructors
-        public Requires64BitProcessAttribute()
-            : base("Requires64Bit")
+        public Requires64BitProcessAttribute() : base("Requires64Bit")
         {
         }
 

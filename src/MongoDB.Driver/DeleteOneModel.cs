@@ -27,7 +27,7 @@ namespace MongoDB.Driver
     /// Model for deleting a single document.
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public sealed class DeleteOneModel<TDocument> : WriteModel<TDocument>
     {
         // fields

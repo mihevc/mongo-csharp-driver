@@ -25,7 +25,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB query exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoQueryException : MongoServerException
     {

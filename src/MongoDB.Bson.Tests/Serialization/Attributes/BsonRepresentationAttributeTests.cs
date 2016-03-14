@@ -13,6 +13,8 @@
 * limitations under the License.
 */
 
+using System.Linq;
+using System.Reflection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using NUnit.Framework;
@@ -44,7 +46,7 @@ namespace MongoDB.Bson.Tests.Serialization.Attributes
         {
             var fieldInfo = typeof(C).GetField("I");
             var attributes = fieldInfo.GetCustomAttributes(typeof(BsonRepresentationAttribute), false);
-            Assert.AreEqual(0, attributes.Length);
+            Assert.AreEqual(0, attributes.Count());
         }
 
         [Test]
@@ -52,8 +54,8 @@ namespace MongoDB.Bson.Tests.Serialization.Attributes
         {
             var fieldInfo = typeof(C).GetField("IL");
             var attributes = fieldInfo.GetCustomAttributes(typeof(BsonRepresentationAttribute), false);
-            Assert.AreEqual(1, attributes.Length);
-            var attribute = (BsonRepresentationAttribute)attributes[0];
+            Assert.AreEqual(1, attributes.Count());
+            var attribute = (BsonRepresentationAttribute)attributes.First();
             Assert.AreEqual(BsonType.Int64, attribute.Representation);
             Assert.AreEqual(false, attribute.AllowOverflow);
             Assert.AreEqual(false, attribute.AllowTruncation);
@@ -64,8 +66,8 @@ namespace MongoDB.Bson.Tests.Serialization.Attributes
         {
             var fieldInfo = typeof(C).GetField("LI");
             var attributes = fieldInfo.GetCustomAttributes(typeof(BsonRepresentationAttribute), false);
-            Assert.AreEqual(1, attributes.Length);
-            var attribute = (BsonRepresentationAttribute)attributes[0];
+            Assert.AreEqual(1, attributes.Count());
+            var attribute = (BsonRepresentationAttribute)attributes.First();
             Assert.AreEqual(BsonType.Int32, attribute.Representation);
             Assert.AreEqual(false, attribute.AllowOverflow);
             Assert.AreEqual(false, attribute.AllowTruncation);
@@ -76,8 +78,8 @@ namespace MongoDB.Bson.Tests.Serialization.Attributes
         {
             var fieldInfo = typeof(C).GetField("LIO");
             var attributes = fieldInfo.GetCustomAttributes(typeof(BsonRepresentationAttribute), false);
-            Assert.AreEqual(1, attributes.Length);
-            var attribute = (BsonRepresentationAttribute)attributes[0];
+            Assert.AreEqual(1, attributes.Count());
+            var attribute = (BsonRepresentationAttribute)attributes.First();
             Assert.AreEqual(BsonType.Int32, attribute.Representation);
             Assert.AreEqual(true, attribute.AllowOverflow);
             Assert.AreEqual(false, attribute.AllowTruncation);
@@ -88,8 +90,8 @@ namespace MongoDB.Bson.Tests.Serialization.Attributes
         {
             var fieldInfo = typeof(C).GetField("DIT");
             var attributes = fieldInfo.GetCustomAttributes(typeof(BsonRepresentationAttribute), false);
-            Assert.AreEqual(1, attributes.Length);
-            var attribute = (BsonRepresentationAttribute)attributes[0];
+            Assert.AreEqual(1, attributes.Count());
+            var attribute = (BsonRepresentationAttribute)attributes.First();
             Assert.AreEqual(BsonType.Int32, attribute.Representation);
             Assert.AreEqual(false, attribute.AllowOverflow);
             Assert.AreEqual(true, attribute.AllowTruncation);
@@ -100,8 +102,8 @@ namespace MongoDB.Bson.Tests.Serialization.Attributes
         {
             var fieldInfo = typeof(C).GetField("DIOT");
             var attributes = fieldInfo.GetCustomAttributes(typeof(BsonRepresentationAttribute), false);
-            Assert.AreEqual(1, attributes.Length);
-            var attribute = (BsonRepresentationAttribute)attributes[0];
+            Assert.AreEqual(1, attributes.Count());
+            var attribute = (BsonRepresentationAttribute)attributes.First();
             Assert.AreEqual(BsonType.Int32, attribute.Representation);
             Assert.AreEqual(true, attribute.AllowOverflow);
             Assert.AreEqual(true, attribute.AllowTruncation);

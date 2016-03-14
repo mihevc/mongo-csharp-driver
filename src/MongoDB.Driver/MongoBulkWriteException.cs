@@ -28,7 +28,7 @@ namespace MongoDB.Driver
     /// Represents a bulk write exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public abstract class MongoBulkWriteException : MongoServerException
     {
@@ -123,7 +123,7 @@ namespace MongoDB.Driver
     /// </summary>
     /// <typeparam name="TDocument">The type of the document.</typeparam>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public sealed class MongoBulkWriteException<TDocument> : MongoBulkWriteException
     {

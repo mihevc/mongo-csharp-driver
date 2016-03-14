@@ -18,6 +18,7 @@ using System.Collections;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;

@@ -45,7 +45,7 @@ namespace MongoDB.Driver.Support
                 return true;
             }
 
-            return typeInfo.GetInterfaces().Any(i => i.ImplementsInterface(iface));
+            return typeInfo.ImplementedInterfaces.Any(i => i.ImplementsInterface(iface));
         }
 
         public static bool IsNullable(this Type type)
@@ -105,7 +105,7 @@ namespace MongoDB.Driver.Support
                 }
             }
 
-            Type[] ifaces = seqTypeInfo.GetInterfaces();
+            Type[] ifaces = seqTypeInfo.ImplementedInterfaces.ToArray(); // .GetInterfaces();
             if (ifaces != null && ifaces.Length > 0)
             {
                 foreach (Type iface in ifaces)

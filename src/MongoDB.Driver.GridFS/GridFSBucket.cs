@@ -814,7 +814,9 @@ namespace MongoDB.Driver.GridFS
             using (var destination = new MemoryStream((int)fileInfo.Length))
             {
                 DownloadToStreamHelper(binding, fileInfo, destination, options, cancellationToken);
-                return destination.GetBuffer();
+                ArraySegment<byte> buffer;
+                destination.TryGetBuffer(out buffer); //.GetBuffer();
+                return buffer.Array;
             }
         }
 
@@ -837,7 +839,9 @@ namespace MongoDB.Driver.GridFS
             using (var destination = new MemoryStream((int)fileInfo.Length))
             {
                 await DownloadToStreamHelperAsync(binding, fileInfo, destination, options, cancellationToken).ConfigureAwait(false);
-                return destination.GetBuffer();
+                ArraySegment<byte> buffer;
+                destination.TryGetBuffer(out buffer); //.GetBuffer();
+                return buffer.Array;
             }
         }
 

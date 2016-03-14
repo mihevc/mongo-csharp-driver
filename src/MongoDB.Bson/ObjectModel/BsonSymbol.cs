@@ -17,7 +17,7 @@ using System;
 
 namespace MongoDB.Bson
 {
-    // TODO: [Serializable] // must have custom deserialization to do SymbolTable lookup
+    // TODO: [System.Runtime.Serialization.DataContract] // must have custom deserialization to do SymbolTable lookup
     /// <summary>
     /// Represents a BSON symbol value.
     /// </summary>

@@ -35,7 +35,7 @@ namespace MongoDB.Driver.Core.Configuration
             subject.CheckCertificateRevocation.Should().BeTrue();
             subject.ClientCertificates.Should().BeEmpty();
             subject.ClientCertificateSelectionCallback.Should().BeNull();
-            subject.EnabledSslProtocols.Should().Be(SslProtocols.Default);
+            subject.EnabledSslProtocols.Should().Be(SslProtocols.Ssl3);
             subject.ServerCertificateValidationCallback.Should().BeNull();
         }
 
@@ -168,7 +168,7 @@ namespace MongoDB.Driver.Core.Configuration
         [Test]
         public void With_enabledProtocols_should_return_expected_result()
         {
-            var oldEnabledProtocols = SslProtocols.Default;
+            var oldEnabledProtocols = SslProtocols.Ssl3;
             var newEnabledProtocols = SslProtocols.Tls12;
             var subject = new SslStreamSettings(enabledProtocols: oldEnabledProtocols);
 

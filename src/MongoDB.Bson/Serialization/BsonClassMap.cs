@@ -1256,7 +1256,7 @@ namespace MongoDB.Bson.Serialization
                 Expression body;
                 var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
                 var classTypeInfo = _classType.GetTypeInfo();
-                var defaultConstructor = classTypeInfo.GetConstructors(bindingFlags)
+                var defaultConstructor = classTypeInfo.DeclaredConstructors.Where(x => (x.IsPublic || x.IsPrivate) && x.IsStatic == false) /* .GetConstructors(bindingFlags) */
                     .Where(c => c.GetParameters().Length == 0)
                     .SingleOrDefault();
                 if (defaultConstructor != null)
@@ -1594,7 +1594,7 @@ namespace MongoDB.Bson.Serialization
             // An interface map must be used because because there is no
             // other officially documented way to derive the explicitly
             // implemented property name.
-            var interfaceMap = actualType.GetInterfaceMap(interfaceType);
+            var interfaceMap = actualType.GetTypeInfo().GetRuntimeInterfaceMap(interfaceType);
 
             var interfacePropertyAccessors = GetPropertyAccessors(interfacePropertyInfo);
 

@@ -21,7 +21,7 @@ namespace MongoDB.Driver
     /// <summary>
     /// Server connection mode.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public enum ConnectionMode
     {
         /// <summary>

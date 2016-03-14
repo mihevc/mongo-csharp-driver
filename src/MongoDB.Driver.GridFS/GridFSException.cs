@@ -22,7 +22,7 @@ namespace MongoDB.Driver.GridFS
     /// Represents a GridFS exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class GridFSException : MongoException
     {

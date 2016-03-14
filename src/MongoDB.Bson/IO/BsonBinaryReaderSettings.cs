@@ -21,7 +21,7 @@ namespace MongoDB.Bson.IO
     /// <summary>
     /// Represents settings for a BsonBinaryReader.
     /// </summary>
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
     public class BsonBinaryReaderSettings : BsonReaderSettings
     {
         // private static fields

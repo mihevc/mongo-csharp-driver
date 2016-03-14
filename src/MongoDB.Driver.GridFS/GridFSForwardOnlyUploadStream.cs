@@ -47,7 +47,7 @@ namespace MongoDB.Driver.GridFS
         private readonly string _filename;
         private readonly ObjectId _id;
         private long _length;
-        private readonly MD5 _md5;
+        private readonly Md5HashWrapper _md5;
         private readonly BsonDocument _metadata;
 
         // constructors
@@ -73,7 +73,8 @@ namespace MongoDB.Driver.GridFS
             _batchSize = batchSize;
 
             _batch = new List<byte[]>();
-            _md5 = MD5.Create();
+            _md5 = new Md5HashWrapper();
+            
         }
 
         // properties
@@ -141,10 +142,10 @@ namespace MongoDB.Driver.GridFS
             await operation.ExecuteAsync(_binding, cancellationToken).ConfigureAwait(false);
         }
 
-        public override void Close()
-        {
-            Close(CancellationToken.None);
-        }
+        //public override void Close()
+        //{
+        //    Close(CancellationToken.None);
+        //}
 
         public override void Close(CancellationToken cancellationToken)
         {
@@ -161,7 +162,7 @@ namespace MongoDB.Driver.GridFS
                 WriteFilesCollectionDocument(cancellationToken);
             }
 
-            base.Close();
+            //base.Close();
         }
 
         public override async Task CloseAsync(CancellationToken cancellationToken = default(CancellationToken))
@@ -179,7 +180,7 @@ namespace MongoDB.Driver.GridFS
                 await WriteFilesCollectionDocumentAsync(cancellationToken).ConfigureAwait(false);
             }
 
-            base.Close();
+            //base.Close();
         }
 
         public override void Flush()
@@ -290,7 +291,7 @@ namespace MongoDB.Driver.GridFS
                 chunkDocuments.Add(chunkDocument);
 
                 _batchPosition += chunk.Length;
-                _md5.TransformBlock(chunk, 0, chunk.Length, null, 0);
+                _md5.TransformBlock(chunk, 0, chunk.Length);
             }
 
             return chunkDocuments;
@@ -304,10 +305,7 @@ namespace MongoDB.Driver.GridFS
 
                 if (disposing)
                 {
-                    if (_md5 != null)
-                    {
-                        _md5.Dispose();
-                    }
+                    _md5?.Dispose();
 
                     _binding.Dispose();
                 }

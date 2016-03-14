@@ -180,12 +180,11 @@ namespace MongoDB.Bson.Serialization
             }
             if (_isFrozen) { ThrowFrozenException(); }
 
-            var classTypeInfo = _classMap.ClassType.GetTypeInfo();
             var arguments = new List<MemberInfo>();
             foreach (var argumentName in argumentNames)
             {
                 var bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
-                var memberInfos = classTypeInfo.GetMembers(bindingFlags)
+                var memberInfos = _classMap.ClassType.GetMembers(bindingFlags)
                     .Where(m => m.Name == argumentName && (m is FieldInfo || m is PropertyInfo))
                     .ToArray();
                 if (memberInfos.Length == 0)
@@ -233,7 +232,7 @@ namespace MongoDB.Bson.Serialization
         private bool IsSameMember(MemberInfo a, MemberInfo b)
         {
             // two MemberInfos refer to the same member if the Module and MetadataToken are equal
-            return a.Module == b.Module && a.MetadataToken == b.MetadataToken;
+            return a.Module == b.Module && a.GetMetadataToken() == b.GetMetadataToken();
         }
 
         private void ThrowFrozenException()

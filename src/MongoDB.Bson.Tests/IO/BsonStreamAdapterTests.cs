@@ -248,8 +248,7 @@ namespace MongoDB.Mini.Bson.Tests
             var stream = Substitute.For<Stream>();
             var subject = new BsonStreamAdapter(stream);
 
-            subject.Close();
-            subject.Close();
+            subject.Dispose();
 
             var subjectReflector = new Reflector(subject);
             subjectReflector._disposed.Should().BeTrue();
@@ -261,7 +260,7 @@ namespace MongoDB.Mini.Bson.Tests
             var stream = Substitute.For<Stream>();
             var subject = new BsonStreamAdapter(stream);
 
-            subject.Close();
+            subject.Dispose();
 
             var subjectReflector = new Reflector(subject);
             subjectReflector._disposed.Should().BeTrue();

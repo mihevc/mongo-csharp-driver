@@ -119,7 +119,7 @@ namespace MongoDB.Driver.Tests
             Assert.AreEqual(true, settings.CheckCertificateRevocation);
             Assert.AreEqual(null, settings.ClientCertificates);
             Assert.AreEqual(null, settings.ClientCertificateSelectionCallback);
-            Assert.AreEqual(SslProtocols.Default, settings.EnabledSslProtocols);
+            Assert.AreEqual(SslProtocols.Ssl3, settings.EnabledSslProtocols);
             Assert.AreEqual(null, settings.ServerCertificateValidationCallback);
         }
 
@@ -156,7 +156,7 @@ namespace MongoDB.Driver.Tests
         public void TestEnabledSslProtocols()
         {
             var settings = new SslSettings();
-            Assert.AreEqual(SslProtocols.Default, settings.EnabledSslProtocols);
+            Assert.AreEqual(SslProtocols.Ssl3, settings.EnabledSslProtocols);
 
             var enabledSslProtocols = SslProtocols.Tls;
             settings.EnabledSslProtocols = enabledSslProtocols;
@@ -184,8 +184,8 @@ namespace MongoDB.Driver.Tests
 
         private string GetTestCertificateFileName()
         {
-            var assemblyFilename = Assembly.GetExecutingAssembly().Location;
-            var assemblyDirectory = Path.GetDirectoryName(assemblyFilename);
+            //var assemblyFilename = typeof(Program).GetTypeInfo().Assembly.Location;
+            var assemblyDirectory = AppContext.BaseDirectory; // Path.GetDirectoryName(assemblyFilename);
             return Path.Combine(assemblyDirectory, "testcert.pfx");
         }
     }

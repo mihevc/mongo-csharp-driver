@@ -89,7 +89,8 @@ namespace MongoDB.Driver.Linq
             }
 
             var declaringTypeDefinition = methodInfo.DeclaringType.GetGenericTypeDefinition();
-            return (MethodInfo)MethodBase.GetMethodFromHandle(methodInfo.MethodHandle, declaringTypeDefinition.TypeHandle);
+            var handleProp = methodInfo.GetType().GetProperty("MethodHandle");
+            return (MethodInfo)MethodBase.GetMethodFromHandle((RuntimeMethodHandle) handleProp.GetValue(methodInfo), declaringTypeDefinition.TypeHandle);
         }
     }
 }

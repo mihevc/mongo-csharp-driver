@@ -15,13 +15,14 @@
 
 using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace MongoDB.Bson
 {
     /// <summary>
     /// Represents BSON binary data.
     /// </summary>
-    [Serializable]
+    [DataContract]
     public class BsonBinaryData : BsonValue, IComparable<BsonBinaryData>, IEquatable<BsonBinaryData>
     {
         // private fields

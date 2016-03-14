@@ -26,7 +26,7 @@ namespace MongoDB.Driver
     /// Represents a MongoDB node is recovering exception.
     /// </summary>
 #if NET45
-    [Serializable]
+    [System.Runtime.Serialization.DataContract]
 #endif
     public class MongoNodeIsRecoveringException : MongoServerException
     {

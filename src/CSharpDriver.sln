@@ -29,18 +29,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Bson", "MongoDB.Bso
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3B87459F-02C5-42F0-876B-7EF7F3C363CD}"
 	ProjectSection(SolutionItems) = preProject
-		MongoDB.Bson\global.json = MongoDB.Bson\global.json
-		MongoDB.Bson.Tests\global.json = MongoDB.Bson.Tests\global.json
-		MongoDB.Bson.TestHelpers\global.json = MongoDB.Bson.TestHelpers\global.json
-		MongoDB.Driver.Core\global.json = MongoDB.Driver.Core\global.json
-		MongoDB.Driver.Core.TestHelpers\global.json = MongoDB.Driver.Core.TestHelpers\global.json
-		MongoDB.Driver.Core.Tests\global.json = MongoDB.Driver.Core.Tests\global.json
-		MongoDB.Driver\global.json = MongoDB.Driver\global.json
-		MongoDB.Driver.Tests\global.json = MongoDB.Driver.Tests\global.json
-		MongoDB.Driver.TestHelpers\global.json = MongoDB.Driver.TestHelpers\global.json
-		MongoDB.Driver.GridFS\global.json = MongoDB.Driver.GridFS\global.json
-		MongoDB.Driver.GridFS.Tests\global.json = MongoDB.Driver.GridFS.Tests\global.json
-		MongoDB.Driver.Examples\global.json = MongoDB.Driver.Examples\global.json
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Driver.Core", "MongoDB.Driver.Core\MongoDB.Driver.Core.xproj", "{3EE6752E-CF17-498E-B7F0-1A43E9562372}"
@@ -48,10 +37,6 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Driver.Core.TestHelpers", "MongoDB.Driver.Core.TestHelpers\MongoDB.Driver.Core.TestHelpers.xproj", "{12E40277-0A62-4A55-A4AE-01BAB6B1CB99}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Driver.Core.Tests", "MongoDB.Driver.Core.Tests\MongoDB.Driver.Core.Tests.xproj", "{782A4B33-4CF1-45F5-9080-18E2DAC905C1}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NSubstitute", "..\..\..\NSubstitute\NSubstitute\Source\NSubstitute\NSubstitute.xproj", "{93BE5250-0029-4238-8C3E-21A3581E1D7B}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Castle.Core", "..\..\..\..\Trimble\Code\Castle.Core\Core\src\Castle.Core\Castle.Core.xproj", "{AC6203A9-8DB5-4E4B-84F9-D8AB03CD20EE}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Driver", "MongoDB.Driver\MongoDB.Driver.xproj", "{D84BF414-82F2-44F6-A4C5-4D28B488B0AE}"
 EndProject
@@ -107,14 +92,6 @@ Global
 		{782A4B33-4CF1-45F5-9080-18E2DAC905C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{782A4B33-4CF1-45F5-9080-18E2DAC905C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{782A4B33-4CF1-45F5-9080-18E2DAC905C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93BE5250-0029-4238-8C3E-21A3581E1D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93BE5250-0029-4238-8C3E-21A3581E1D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93BE5250-0029-4238-8C3E-21A3581E1D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93BE5250-0029-4238-8C3E-21A3581E1D7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC6203A9-8DB5-4E4B-84F9-D8AB03CD20EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC6203A9-8DB5-4E4B-84F9-D8AB03CD20EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC6203A9-8DB5-4E4B-84F9-D8AB03CD20EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC6203A9-8DB5-4E4B-84F9-D8AB03CD20EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D84BF414-82F2-44F6-A4C5-4D28B488B0AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D84BF414-82F2-44F6-A4C5-4D28B488B0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D84BF414-82F2-44F6-A4C5-4D28B488B0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -154,8 +131,6 @@ Global
 		{3EE6752E-CF17-498E-B7F0-1A43E9562372} = {475393A0-310D-4EEE-8E3F-F196A96B2A99}
 		{12E40277-0A62-4A55-A4AE-01BAB6B1CB99} = {475393A0-310D-4EEE-8E3F-F196A96B2A99}
 		{782A4B33-4CF1-45F5-9080-18E2DAC905C1} = {475393A0-310D-4EEE-8E3F-F196A96B2A99}
-		{93BE5250-0029-4238-8C3E-21A3581E1D7B} = {391D831D-5AC7-43F8-8BCB-6AE81B027658}
-		{AC6203A9-8DB5-4E4B-84F9-D8AB03CD20EE} = {391D831D-5AC7-43F8-8BCB-6AE81B027658}
 		{D84BF414-82F2-44F6-A4C5-4D28B488B0AE} = {11282844-4584-4F65-9857-D4329046E84D}
 		{0742CC8E-8AF3-4B6A-A378-B15C4D14F090} = {11282844-4584-4F65-9857-D4329046E84D}
 		{34D87CAD-A674-49AB-9976-757AF48A6D93} = {11282844-4584-4F65-9857-D4329046E84D}

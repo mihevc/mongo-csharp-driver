@@ -1,42 +1,42 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB Driver Core Tests",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-        "System.Runtime.Serialization.Primitives": "4.1.0-beta-23516"
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
   "commands": {
     "MongoDB.Driver.Tests": "MongoDB.Driver.Tests"
   },
-  "exclude": [
-  ],
-  "compile": [
-  ],
-  "compilationOptions": {
-    "define": [ "COREFX" ]
+  "buildOptions": {
+    "define": [ "COREFX" ],
+    "embed": [
+      "Specifications/command-monitoring/tests/*.*",
+      "Specifications/crud/tests/read/*.*",
+      "Specifications/crud/tests/write/*.*"
+    ],
+    "emitEntryPoint": true
   },
-  "resource": [
-    "Specifications/command-monitoring/tests/*.*",
-    "Specifications/crud/tests/read/*.*",
-    "Specifications/crud/tests/write/*.*"
-  ],
+
   "dependencies": {
-    "Castle.Core": "3.3.4-*",
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
+    },
+    "Castle.Core": "4.0.0-alpha001",
     "FluentAssertions": "4.2.2",
-    "MongoDB.Bson": "1.0.0-*",
-    "MongoDB.Bson.TestHelpers": "1.0.0-*",
-    "MongoDB.Driver.Core": "1.0.0-*",
-    "MongoDB.Driver.TestHelpers": "1.0.0-*",
-    "NSubstitute": "1.0.0-*",
-    "NUnit": "3.2.0",
-    "NUnitLite": "3.2.0",
-    "System.Linq.Queryable": "4.0.0"
+    "MongoDB.Bson": "1.1.0-*",
+    "MongoDB.Bson.TestHelpers": "1.1.0-*",
+    "MongoDB.Driver.Core": "1.1.0-*",
+    "MongoDB.Driver.TestHelpers": "1.1.0-*",
+    "NSubstitute": "2.0.0-*",
+    "NUnit": "3.2.1",
+    "NUnitLite": "3.2.1"
   }
 }

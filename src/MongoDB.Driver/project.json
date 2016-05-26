@@ -1,29 +1,25 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB Driver",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
   "dependencies": {
-    "MongoDB.Bson": "1.0.0-*",
-    "MongoDB.Driver.Core": "1.0.0-*",
-    "System.Linq.Expressions": "4.0.11-beta-23225",
-    "System.Linq.Queryable": "4.0.0",
-    "System.Reflection": "4.1.0-rc3-23818",
-    "System.Reflection.Extensions": "4.0.1-beta-23516",
-    "System.Reflection.TypeExtensions": "4.1.0-beta-23516",
-    "System.Security.Cryptography.Algorithms": "4.0.0-beta-23516"
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
+    },
+    "MongoDB.Bson": "1.1.0-*",
+    "MongoDB.Driver.Core": "1.1.0-*"
   },
-  "exclude": [
-  ],
-  "compilationOptions": {
-    "define": ["COREFX"]
+  "buildOptions": {
+    "define": [ "COREFX" ]
   }
 }

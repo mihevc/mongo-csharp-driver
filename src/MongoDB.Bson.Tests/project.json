@@ -1,36 +1,36 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB BSON Tests",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-        "System.Runtime.Serialization.Primitives": "4.1.0-beta-23516",
-        "Microsoft.CSharp": "4.0.1-beta-23516"
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
   "commands": {
     "MongoDB.Bson.Tests": "MongoDB.Bson.Tests"
   },
-  "exclude": [
-  ],
-  "compile": [
-  ],
-  "compilationOptions": {
-    "define": [ "COREFX" ]
+  "buildOptions": {
+    "define": [ "COREFX" ],
+    "emitEntryPoint": true
   },
   "dependencies": {
-    "Castle.Core": "3.3.4-*",
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
+    },
+    "Castle.Core": "4.0.0-alpha001",
     "FluentAssertions": "4.2.2",
-    "MongoDB.Bson": "1.0.0-*",
-    "MongoDB.Bson.TestHelpers": "1.0.0-*",
-    "NSubstitute": "1.0.0-*",
-    "NUnit": "3.2.0",
-    "NUnitLite": "3.2.0",
-    "System.Runtime.Serialization.Xml": "4.1.0-beta-23516"
+    "MongoDB.Bson": "1.1.0-*",
+    "NSubstitute": "2.0.0",
+    "MongoDB.Bson.TestHelpers": "1.1.0-*",
+    "NUnitLite": "3.2.1",
+    "System.Runtime.Serialization.Primitives": "4.1.1-rc2-24027",
+    "System.Runtime.Serialization.Xml": "4.1.1-rc2-24027",
+    "System.Collections.Specialized": "4.0.1-rc2-24027"
   }
 }

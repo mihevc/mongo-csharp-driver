@@ -1,26 +1,22 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB Driver GridFS",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-        "System.Security.Cryptography.Algorithms": "4.0.0-beta-23516",
-        "System.Reflection": "4.1.0-rc3-23818"
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
   "dependencies": {
-    "MongoDB.Bson": "1.0.0-*",
-    "MongoDB.Driver": "1.0.0-*",
-    "MongoDB.Driver.Core": "1.0.0-*"
+    "MongoDB.Bson": "1.1.0-*",
+    "MongoDB.Driver": "1.1.0-*",
+    "MongoDB.Driver.Core": "1.1.0-*"
   },
-  "exclude": [
-  ],
-  "compilationOptions": {
-    "define": ["COREFX"]
+  "buildOptions": {
+    "define": [ "COREFX" ]
   }
 }

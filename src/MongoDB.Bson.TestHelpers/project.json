@@ -1,24 +1,22 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB BSON Test Helpers",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
-  "exclude": [
-  ],
-  "compilationOptions": {
+  "buildOptions": {
     "define": [ "COREFX" ]
   },
   "dependencies": {
     "FluentAssertions": "4.2.2",
-    "MongoDB.Bson": "1.0.0-*",
+    "MongoDB.Bson": "1.1.0-*",
     "NUnit": "3.2.0"
   }
 }

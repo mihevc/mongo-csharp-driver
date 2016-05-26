@@ -35,14 +35,14 @@ namespace MongoDB.Driver.Core.Authentication
         [TestCase("user", "pencil", "1c33006ec1ffd90f9cadcbcc0e118200")]
         public void MongoPasswordDigest_should_create_the_correct_hash(string username, string password, string expected)
         {
-            var securePassword = new SecureString();
-            foreach (var c in password)
-            {
-                securePassword.AppendChar(c);
-            }
-            securePassword.MakeReadOnly();
+            //var securePassword = new SecureString();
+            //foreach (var c in password)
+            //{
+            //    securePassword.AppendChar(c);
+            //}
+            //securePassword.MakeReadOnly();
 
-            var passwordDigest = AuthenticationHelper.MongoPasswordDigest(username, securePassword);
+            var passwordDigest = AuthenticationHelper.MongoPasswordDigest(username, password);
 
             passwordDigest.Should().BeEquivalentTo(expected);
         }

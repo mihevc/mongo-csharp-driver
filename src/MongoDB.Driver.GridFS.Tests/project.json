@@ -1,34 +1,37 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB Drive GridFS",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "commands": {
     "MongoDB.Driver.GridFS.Tests": "MongoDB.Driver.GridFS.Tests"
   },
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
   "dependencies": {
-    "MongoDB.Driver.GridFS": "1.0.0-*",
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
+    },
+    "MongoDB.Driver.GridFS": "1.1.0-*",
     "FluentAssertions": "4.2.2",
-    "NUnit": "3.2.0",
-    "NUnitLite": "3.2.0",
-    "NSubstitute": "1.0.0-*",
-    "Castle.Core": "3.3.4-*",
-    "MongoDB.Driver.Tests": "1.0.0-*"
+    "NUnit": "3.2.1",
+    "NUnitLite": "3.2.1",
+    "NSubstitute": "2.0.0-*",
+    "Castle.Core": "4.0.0-alpha001",
+    "MongoDB.Driver.Tests": "1.1.0-*"
   },
-  "exclude": [
-  ],
-  "resource": [
-    "Specifications/gridfs/tests/*.*"
-  ],
-  "compilationOptions": {
-    "define": ["COREFX"]
+  "buildOptions": {
+    "define": [ "COREFX" ],
+    "embed": [
+      "Specifications/gridfs/tests/*.*"
+    ],
+    "emitEntryPoint": true
   }
 }

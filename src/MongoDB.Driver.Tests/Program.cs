@@ -7,7 +7,7 @@ namespace MongoDB.Driver.Tests
 {
     public class Program
     {
-        public int Main(string[] args)
+        public static int Main(string[] args)
         {
 #if DNX451
         return new AutoRun().Execute(args);

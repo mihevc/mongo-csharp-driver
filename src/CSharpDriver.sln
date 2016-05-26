@@ -1,23 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bson", "Bson", "{02386664-8BF7-4E57-A24E-B059B8F997F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{475393A0-310D-4EEE-8E3F-F196A96B2A99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driver", "Driver", "{11282844-4584-4F65-9857-D4329046E84D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Driver.TestConsoleApplication", "MongoDB.Driver.TestConsoleApplication\MongoDB.Driver.TestConsoleApplication.csproj", "{858FA1E8-831B-4B4B-A29F-B1F4332DF6A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Driver.Legacy", "MongoDB.Driver.Legacy\MongoDB.Driver.Legacy.csproj", "{97962946-AA1E-4308-B7A7-6AD92BDBC358}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Driver.Legacy.Tests", "MongoDB.Driver.Legacy.Tests\MongoDB.Driver.Legacy.Tests.csproj", "{4F42BA31-AAA3-4BD4-A4F2-7F7A53940D69}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Driver.Legacy.TestHelpers", "MongoDB.Driver.Legacy.TestHelpers\MongoDB.Driver.Legacy.TestHelpers.csproj", "{02AB2E44-785A-4D39-99C0-29F93A02EF84}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{C0AC2FCF-37FB-4A64-ACC6-8490DC15091D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{391D831D-5AC7-43F8-8BCB-6AE81B027658}"
 EndProject
@@ -26,11 +16,6 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Bson.TestHelpers", "MongoDB.Bson.TestHelpers\MongoDB.Bson.TestHelpers.xproj", "{E86EA7FB-A827-45CB-A7F2-31934E6AAE91}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Bson", "MongoDB.Bson\MongoDB.Bson.xproj", "{49A7F111-4F58-43E3-AFCC-FBDFE0C16496}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3B87459F-02C5-42F0-876B-7EF7F3C363CD}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MongoDB.Driver.Core", "MongoDB.Driver.Core\MongoDB.Driver.Core.xproj", "{3EE6752E-CF17-498E-B7F0-1A43E9562372}"
 EndProject
@@ -56,18 +41,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{858FA1E8-831B-4B4B-A29F-B1F4332DF6A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{858FA1E8-831B-4B4B-A29F-B1F4332DF6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{858FA1E8-831B-4B4B-A29F-B1F4332DF6A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97962946-AA1E-4308-B7A7-6AD92BDBC358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97962946-AA1E-4308-B7A7-6AD92BDBC358}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97962946-AA1E-4308-B7A7-6AD92BDBC358}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F42BA31-AAA3-4BD4-A4F2-7F7A53940D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F42BA31-AAA3-4BD4-A4F2-7F7A53940D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F42BA31-AAA3-4BD4-A4F2-7F7A53940D69}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02AB2E44-785A-4D39-99C0-29F93A02EF84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02AB2E44-785A-4D39-99C0-29F93A02EF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02AB2E44-785A-4D39-99C0-29F93A02EF84}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4815E305-470B-4880-95EA-3EB5FD36EDEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4815E305-470B-4880-95EA-3EB5FD36EDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4815E305-470B-4880-95EA-3EB5FD36EDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -121,10 +94,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{858FA1E8-831B-4B4B-A29F-B1F4332DF6A7} = {391D831D-5AC7-43F8-8BCB-6AE81B027658}
-		{97962946-AA1E-4308-B7A7-6AD92BDBC358} = {C0AC2FCF-37FB-4A64-ACC6-8490DC15091D}
-		{4F42BA31-AAA3-4BD4-A4F2-7F7A53940D69} = {C0AC2FCF-37FB-4A64-ACC6-8490DC15091D}
-		{02AB2E44-785A-4D39-99C0-29F93A02EF84} = {C0AC2FCF-37FB-4A64-ACC6-8490DC15091D}
 		{4815E305-470B-4880-95EA-3EB5FD36EDEF} = {02386664-8BF7-4E57-A24E-B059B8F997F0}
 		{E86EA7FB-A827-45CB-A7F2-31934E6AAE91} = {02386664-8BF7-4E57-A24E-B059B8F997F0}
 		{49A7F111-4F58-43E3-AFCC-FBDFE0C16496} = {02386664-8BF7-4E57-A24E-B059B8F997F0}

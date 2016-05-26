@@ -1254,7 +1254,7 @@ namespace MongoDB.Bson.Serialization
             if (_creator == null)
             {
                 Expression body;
-                var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                //var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
                 var classTypeInfo = _classType.GetTypeInfo();
                 var defaultConstructor = classTypeInfo.DeclaredConstructors.Where(x => (x.IsPublic || x.IsPrivate) && x.IsStatic == false) /* .GetConstructors(bindingFlags) */
                     .Where(c => c.GetParameters().Length == 0)

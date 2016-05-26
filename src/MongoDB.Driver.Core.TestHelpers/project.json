@@ -1,26 +1,27 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB Driver Core Test Helpers",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-        "System.Console": "4.0.0-beta-23516",
-        "System.Diagnostics.StackTrace": "4.0.1-beta-23516"
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
-
-  "compilationOptions": {
+  "buildOptions": {
     "define": [ "COREFX" ]
   },
   "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
+    },
     "FluentAssertions": "4.2.2",
-    "MongoDB.Bson": "1.0.0-*",
-    "MongoDB.Driver.Core": "1.0.0-*",
+    "MongoDB.Bson": "1.1.0-*",
+    "MongoDB.Driver.Core": "1.1.0-*",
     "NUnit": "3.2.0"
   }
 }

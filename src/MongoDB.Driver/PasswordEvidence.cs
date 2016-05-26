@@ -14,11 +14,8 @@
 */
 
 using System;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Security.Cryptography;
-using System.Text;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
 
@@ -30,7 +27,7 @@ namespace MongoDB.Driver
     public sealed class PasswordEvidence : MongoIdentityEvidence
     {
         // private fields
-        private readonly SecureString _securePassword;
+        private readonly string _securePassword;
         private readonly string _digest; // used to implement Equals without referring to the SecureString
 
         // constructors
@@ -38,26 +35,17 @@ namespace MongoDB.Driver
         /// Initializes a new instance of the <see cref="PasswordEvidence" /> class.
         /// </summary>
         /// <param name="password">The password.</param>
-        public PasswordEvidence(SecureString password)
+        public PasswordEvidence(string password)
         {
-            _securePassword = password.Copy();
-            _securePassword.MakeReadOnly();
+            _securePassword = password;
             _digest = GenerateDigest(password);
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PasswordEvidence" /> class.
-        /// </summary>
-        /// <param name="password">The password.</param>
-        public PasswordEvidence(string password)
-            : this(CreateSecureString(password))
-        { }
 
         // public properties
         /// <summary>
         /// Gets the password.
         /// </summary>
-        public SecureString SecurePassword
+        public string SecurePassword
         {
             get { return _securePassword; }
         }
@@ -106,26 +94,27 @@ namespace MongoDB.Driver
         }
 
         // private static methods
-        private static SecureString CreateSecureString(string str)
+        private static string CreateSecureString(string str)
         {
-            if (str != null)
-            {
-                var secureStr = new SecureString();
-                foreach (var c in str)
-                {
-                    secureStr.AppendChar(c);
-                }
-                secureStr.MakeReadOnly();
-                return secureStr;
-            }
+            return str;
+            //if (str != null)
+            //{
+            //    var secureStr = new SecureString();
+            //    foreach (var c in str)
+            //    {
+            //        secureStr.AppendChar(c);
+            //    }
+            //    secureStr.MakeReadOnly();
+            //    return secureStr;
+            //}
 
-            return null;
+            //return null;
         }
 
         /// <summary>
         /// Computes the hash value of the secured string 
         /// </summary>
-        private static string GenerateDigest(SecureString secureString)
+        private static string GenerateDigest(string secureString)
         {
             using (var sha256 = SHA256.Create()) // new SHA256CryptoServiceProvider())
             {
@@ -134,23 +123,23 @@ namespace MongoDB.Driver
             }
         }
 
-        private static byte[] ComputeHash(HashAlgorithm algorithm, byte[] prefixBytes, SecureString secureString)
+        private static byte[] ComputeHash(HashAlgorithm algorithm, byte[] prefixBytes, string secureString)
         {
-            var ptr = SecureStringMarshal.SecureStringToCoTaskMemUnicode(secureString);
-            try
-            {
-                var passwordChars = new char[secureString.Length];
-                var passwordCharsHandle = GCHandle.Alloc(passwordChars, GCHandleType.Pinned);
-                try
-                {
-                    Marshal.Copy(ptr, passwordChars, 0, passwordChars.Length);
+            //var ptr = SecureStringMarshal.SecureStringToCoTaskMemUnicode(secureString);
+            //try
+            //{
+            //    var passwordChars = new char[secureString.Length];
+            //    var passwordCharsHandle = GCHandle.Alloc(passwordChars, GCHandleType.Pinned);
+            //    try
+            //    {
+            //        Marshal.Copy(ptr, passwordChars, 0, passwordChars.Length);
 
-                    var passwordBytes = new byte[secureString.Length * 3]; // worst case for UTF16 to UTF8 encoding
-                    var passwordBytesHandle = GCHandle.Alloc(passwordBytes, GCHandleType.Pinned);
+                    var passwordBytes = Utf8Encodings.Strict.GetBytes(secureString); // new byte[secureString.Length * 3]; // worst case for UTF16 to UTF8 encoding
+                    //var passwordBytesHandle = GCHandle.Alloc(passwordBytes, GCHandleType.Pinned);
                     try
                     {
                         var encoding = Utf8Encodings.Strict;
-                        var length = encoding.GetBytes(passwordChars, 0, passwordChars.Length, passwordBytes, 0);
+                        //var length = encoding.GetBytes(passwordChars, 0, passwordChars.Length, passwordBytes, 0);
                         var buffer = new byte[prefixBytes.Length + passwordBytes.Length];
                         Buffer.BlockCopy(prefixBytes, 0, buffer, 0, prefixBytes.Length);
                         Buffer.BlockCopy(passwordBytes, 0, buffer, prefixBytes.Length, passwordBytes.Length);
@@ -161,19 +150,19 @@ namespace MongoDB.Driver
                     finally
                     {
                         Array.Clear(passwordBytes, 0, passwordBytes.Length);
-                        passwordBytesHandle.Free();
+                        //passwordBytesHandle.Free();
                     }
-                }
-                finally
-                {
-                    Array.Clear(passwordChars, 0, passwordChars.Length);
-                    passwordCharsHandle.Free();
-                }
-            }
-            finally
-            {
-                SecureStringMarshal.ZeroFreeCoTaskMemUnicode(ptr);
-            }
+            //    }
+            //    finally
+            //    {
+            //        Array.Clear(passwordChars, 0, passwordChars.Length);
+            //        passwordCharsHandle.Free();
+            //    }
+            //}
+            //finally
+            //{
+            //    SecureStringMarshal.ZeroFreeCoTaskMemUnicode(ptr);
+            //}
         }
     }
 }

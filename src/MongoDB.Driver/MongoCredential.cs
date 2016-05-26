@@ -95,7 +95,8 @@ namespace MongoDB.Driver
                 var passwordEvidence = _evidence as PasswordEvidence;
                 if (passwordEvidence != null)
                 {
-                    return MongoUtils.ToInsecureString(passwordEvidence.SecurePassword);
+                    return passwordEvidence.SecurePassword;
+                    //return MongoUtils.ToInsecureString(passwordEvidence.SecurePassword);
                 }
 
                 return null;
@@ -158,21 +159,6 @@ namespace MongoDB.Driver
         }
 
         /// <summary>
-        /// Creates a default credential.
-        /// </summary>
-        /// <param name="databaseName">Name of the database.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>A default credential.</returns>
-        public static MongoCredential CreateCredential(string databaseName, string username, SecureString password)
-        {
-            return FromComponents(null,
-                databaseName,
-                username,
-                new PasswordEvidence(password));
-        }
-
-        /// <summary>
         /// Creates a GSSAPI credential.
         /// </summary>
         /// <param name="username">The username.</param>
@@ -201,20 +187,6 @@ namespace MongoDB.Driver
         }
 
         /// <summary>
-        /// Creates a GSSAPI credential.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>A credential for GSSAPI.</returns>
-        public static MongoCredential CreateGssapiCredential(string username, SecureString password)
-        {
-            return FromComponents("GSSAPI",
-                "$external",
-                username,
-                new PasswordEvidence(password));
-        }
-
-        /// <summary>
         /// Creates a credential used with MONGODB-CR.
         /// </summary>
         /// <param name="databaseName">Name of the database.</param>
@@ -222,21 +194,6 @@ namespace MongoDB.Driver
         /// <param name="password">The password.</param>
         /// <returns>A credential for MONGODB-CR.</returns>
         public static MongoCredential CreateMongoCRCredential(string databaseName, string username, string password)
-        {
-            return FromComponents("MONGODB-CR",
-                databaseName,
-                username,
-                new PasswordEvidence(password));
-        }
-
-        /// <summary>
-        /// Creates a credential used with MONGODB-CR.
-        /// </summary>
-        /// <param name="databaseName">Name of the database.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>A credential for MONGODB-CR.</returns>
-        public static MongoCredential CreateMongoCRCredential(string databaseName, string username, SecureString password)
         {
             return FromComponents("MONGODB-CR",
                 databaseName,
@@ -265,21 +222,6 @@ namespace MongoDB.Driver
         /// <param name="password">The password.</param>
         /// <returns>A credential for PLAIN.</returns>
         public static MongoCredential CreatePlainCredential(string databaseName, string username, string password)
-        {
-            return FromComponents("PLAIN",
-                databaseName,
-                username,
-                new PasswordEvidence(password));
-        }
-
-        /// <summary>
-        /// Creates a PLAIN credential.
-        /// </summary>
-        /// <param name="databaseName">Name of the database.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>A credential for PLAIN.</returns>
-        public static MongoCredential CreatePlainCredential(string databaseName, string username, SecureString password)
         {
             return FromComponents("PLAIN",
                 databaseName,
@@ -380,7 +322,7 @@ namespace MongoDB.Driver
                 var credential = new UsernamePasswordCredential(
                     _identity.Source,
                     _identity.Username,
-                    MongoUtils.ToInsecureString(passwordEvidence.SecurePassword));
+                    passwordEvidence.SecurePassword);
                 if (_mechanism == null)
                 {
                     return new DefaultAuthenticator(credential);

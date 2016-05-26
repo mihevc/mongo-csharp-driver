@@ -27,10 +27,9 @@ namespace MongoDB.Driver.Core.Authentication
     {
         // fields
         private string _source;
-        private SecureString _password;
+        private string _password;
         private string _username;
 
-        // constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="UsernamePasswordCredential"/> class.
         /// </summary>
@@ -38,17 +37,6 @@ namespace MongoDB.Driver.Core.Authentication
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         public UsernamePasswordCredential(string source, string username, string password)
-            : this(source, username, ConvertPasswordToSecureString(password))
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UsernamePasswordCredential"/> class.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        public UsernamePasswordCredential(string source, string username, SecureString password)
         {
             _source = Ensure.IsNotNullOrEmpty(source, nameof(source));
             _username = Ensure.IsNotNullOrEmpty(username, nameof(username));
@@ -62,7 +50,7 @@ namespace MongoDB.Driver.Core.Authentication
         /// <value>
         /// The password.
         /// </value>
-        public SecureString Password
+        public string Password
         {
             get { return _password; }
         }
@@ -94,32 +82,32 @@ namespace MongoDB.Driver.Core.Authentication
         /// Gets the password (converts the password from a SecureString to a regular string).
         /// </summary>
         /// <returns>The password.</returns>
-        public string GetInsecurePassword()
-        {
-            IntPtr unmanagedPassword = IntPtr.Zero;
-            try
-            {
-                unmanagedPassword = SecureStringMarshal.SecureStringToCoTaskMemUnicode(_password); //SecureStringToGlobalAllocUnicode(_password);
-                return Marshal.PtrToStringUni(unmanagedPassword);
-            }
-            finally
-            {
-                if (unmanagedPassword != IntPtr.Zero)
-                {
-                    Marshal.ZeroFreeGlobalAllocUnicode(unmanagedPassword);
-                }
-            }
-        }
+        //public string GetInsecurePassword()
+        //{
+        //    IntPtr unmanagedPassword = IntPtr.Zero;
+        //    try
+        //    {
+        //        unmanagedPassword = SecureStringMarshal.SecureStringToCoTaskMemUnicode(_password); //SecureStringToGlobalAllocUnicode(_password);
+        //        return Marshal.PtrToStringUni(unmanagedPassword);
+        //    }
+        //    finally
+        //    {
+        //        if (unmanagedPassword != IntPtr.Zero)
+        //        {
+        //            Marshal.ZeroFreeGlobalAllocUnicode(unmanagedPassword);
+        //        }
+        //    }
+        //}
 
-        private static SecureString ConvertPasswordToSecureString(string password)
-        {
-            var secureString = new SecureString();
-            foreach (var c in password)
-            {
-                secureString.AppendChar(c);
-            }
-            secureString.MakeReadOnly();
-            return secureString;
-        }
+        //private static string ConvertPasswordToSecureString(string password)
+        //{
+        //    var secureString = new SecureString();
+        //    foreach (var c in password)
+        //    {
+        //        secureString.AppendChar(c);
+        //    }
+        //    secureString.MakeReadOnly();
+        //    return secureString;
+        //}
     }
 }

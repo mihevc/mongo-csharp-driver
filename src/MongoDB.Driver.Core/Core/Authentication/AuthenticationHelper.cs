@@ -14,11 +14,8 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
@@ -60,31 +57,30 @@ namespace MongoDB.Driver.Core.Authentication
             }
         }
 
-        public static string MongoPasswordDigest(string username, SecureString password)
+        public static string MongoPasswordDigest(string username, string password)
         {
             using (var md5 = MD5.Create())
             {
                 var bytes = Utf8Encodings.Strict.GetBytes(username + ":mongo:");
 
-                IntPtr unmanagedPassword = IntPtr.Zero;
+                //IntPtr unmanagedPassword = IntPtr.Zero;
                 try
                 {
-                    unmanagedPassword = SecureStringMarshal.SecureStringToCoTaskMemUnicode(password);
-                    //unmanagedPassword = Marshal.SecureStringToBSTR(password);
-                    var passwordChars = new char[password.Length];
-                    GCHandle passwordCharsHandle = new GCHandle();
+                    //unmanagedPassword = SecureStringMarshal.SecureStringToCoTaskMemUnicode(password);
+                    //var passwordChars = new char[password.Length];
+                    //GCHandle passwordCharsHandle = new GCHandle();
                     try
                     {
-                        passwordCharsHandle = GCHandle.Alloc(passwordChars, GCHandleType.Pinned);
-                        Marshal.Copy(unmanagedPassword, passwordChars, 0, passwordChars.Length);
+                        //passwordCharsHandle = GCHandle.Alloc(passwordChars, GCHandleType.Pinned);
+                        //Marshal.Copy(unmanagedPassword, passwordChars, 0, passwordChars.Length);
 
-                        var byteCount = Utf8Encodings.Strict.GetByteCount(passwordChars);
-                        var passwordBytes = new byte[byteCount];
-                        GCHandle passwordBytesHandle = new GCHandle();
+                        //var byteCount = Utf8Encodings.Strict.GetByteCount(passwordChars);
+                        var passwordBytes = Utf8Encodings.Strict.GetBytes(password); // new byte[byteCount];
+                        //GCHandle passwordBytesHandle = new GCHandle();
                         try
                         {
-                            passwordBytesHandle = GCHandle.Alloc(passwordBytesHandle, GCHandleType.Pinned);
-                            Utf8Encodings.Strict.GetBytes(passwordChars, 0, passwordChars.Length, passwordBytes, 0);
+                            //passwordBytesHandle = GCHandle.Alloc(passwordBytesHandle, GCHandleType.Pinned);
+                            //Utf8Encodings.Strict.GetBytes(passwordChars, 0, passwordChars.Length, passwordBytes, 0);
 
                             var buffer = new byte[bytes.Length + passwordBytes.Length];
                             Buffer.BlockCopy(bytes, 0, buffer, 0, bytes.Length);
@@ -96,28 +92,28 @@ namespace MongoDB.Driver.Core.Authentication
                         {
                             Array.Clear(passwordBytes, 0, passwordBytes.Length);
 
-                            if (passwordBytesHandle.IsAllocated)
-                            {
-                                passwordBytesHandle.Free();
-                            }
+                            //if (passwordBytesHandle.IsAllocated)
+                            //{
+                            //    passwordBytesHandle.Free();
+                            //}
                         }
                     }
                     finally
                     {
-                        Array.Clear(passwordChars, 0, passwordChars.Length);
+                        //Array.Clear(passwordChars, 0, passwordChars.Length);
 
-                        if (passwordCharsHandle.IsAllocated)
-                        {
-                            passwordCharsHandle.Free();
-                        }
+                        //if (passwordCharsHandle.IsAllocated)
+                        //{
+                        //    passwordCharsHandle.Free();
+                        //}
                     }
                 }
                 finally
                 {
-                    if (unmanagedPassword != IntPtr.Zero)
-                    {
-                        SecureStringMarshal.ZeroFreeCoTaskMemUnicode(unmanagedPassword);
-                    }
+                    //if (unmanagedPassword != IntPtr.Zero)
+                    //{
+                    //    SecureStringMarshal.ZeroFreeCoTaskMemUnicode(unmanagedPassword);
+                    //}
                 }
             }
         }

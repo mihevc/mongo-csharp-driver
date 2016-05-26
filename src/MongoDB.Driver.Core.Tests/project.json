@@ -1,57 +1,56 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.1.0-*",
   "description": "MongoDB Driver Core Tests",
   "authors": [ "MongoDB" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-        "System.Runtime.Serialization.Primitives": "4.1.0-beta-23516",
-        "Microsoft.CSharp": "4.0.1-beta-23516"
-      }
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
   },
   "commands": {
     "MongoDB.Driver.Core.Tests": "MongoDB.Driver.Core.Tests"
   },
-  "exclude": [
-  ],
-  "compile": [
-  ],
-  "resource": [
-    "Specifications/connection-string/tests/*.*",
-    "Specifications/read-write-concern/tests/connection-string/*.*",
-    "Specifications/read-write-concern/tests/document/*.*",
-    "Specifications/server-discovery-and-monitoring/tests/rs/*.*",
-    "Specifications/server-discovery-and-monitoring/tests/shared/*.*",
-    "Specifications/server-discovery-and-monitoring/tests/single/*.*",
-    "Specifications/server-selection/tests/rtt/*.*",
-    "Specifications/server-selection/tests/server_selection/ReplicaSetNoPrimary/read/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/ReplicaSetNoPrimary/write/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/ReplicaSetWithPrimary/read/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/ReplicaSetWithPrimary/write/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/Sharded/read/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/Sharded/write/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/Single/read/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/Single/write/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/Unknown/read/*.*",
-    "Specifications/server-selection/tests/tests/server_selection/Unknown/write/*.*"
-  ],
-  "compilationOptions": {
-    "define": [ "COREFX" ]
+  "buildOptions": {
+    "define": [ "COREFX" ],
+    "embed": [
+      "Specifications/connection-string/tests/*.*",
+      "Specifications/read-write-concern/tests/connection-string/*.*",
+      "Specifications/read-write-concern/tests/document/*.*",
+      "Specifications/server-discovery-and-monitoring/tests/rs/*.*",
+      "Specifications/server-discovery-and-monitoring/tests/shared/*.*",
+      "Specifications/server-discovery-and-monitoring/tests/single/*.*",
+      "Specifications/server-selection/tests/rtt/*.*",
+      "Specifications/server-selection/tests/server_selection/ReplicaSetNoPrimary/read/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/ReplicaSetNoPrimary/write/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/ReplicaSetWithPrimary/read/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/ReplicaSetWithPrimary/write/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/Sharded/read/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/Sharded/write/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/Single/read/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/Single/write/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/Unknown/read/*.*",
+      "Specifications/server-selection/tests/tests/server_selection/Unknown/write/*.*"
+    ],
+    "emitEntryPoint": true
   },
   "dependencies": {
-    "Castle.Core": "3.3.4-*",
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-rc2-3002702",
+      "type": "platform"
+    },
+    "Castle.Core": "4.0.0-alpha001",
     "FluentAssertions": "4.2.2",
-    "MongoDB.Bson": "1.0.0-*",
-    "MongoDB.Bson.TestHelpers": "1.0.0-*",
-    "MongoDB.Driver.Core": "1.0.0-*",
-    "MongoDB.Driver.Core.TestHelpers": "1.0.0-*",
-    "NSubstitute": "1.0.0-*",
-    "NUnit": "3.2.0",
-    "NUnitLite": "3.2.0",
+    "MongoDB.Bson": "1.1.0-*",
+    "MongoDB.Bson.TestHelpers": "1.1.0-*",
+    "MongoDB.Driver.Core": "1.1.0-*",
+    "MongoDB.Driver.Core.TestHelpers": "1.1.0-*",
+    "NSubstitute": "2.0.0-*",
+    "NUnit": "3.2.1",
+    "NUnitLite": "3.2.1",
     "System.Runtime.Serialization.Xml": "4.1.0-beta-23516"
   }
 }

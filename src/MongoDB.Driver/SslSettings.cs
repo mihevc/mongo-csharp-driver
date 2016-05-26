@@ -37,7 +37,7 @@ namespace MongoDB.Driver
         private bool _checkCertificateRevocation = true;
         private X509CertificateCollection _clientCertificateCollection;
         private LocalCertificateSelectionCallback _clientCertificateSelectionCallback;
-        private SslProtocols _enabledSslProtocols = SslProtocols.Ssl3;
+        private SslProtocols _enabledSslProtocols = SslProtocols.Tls;
         private RemoteCertificateValidationCallback _serverCertificateValidationCallback;
 
         // the following fields are set when the SslSettings are frozen

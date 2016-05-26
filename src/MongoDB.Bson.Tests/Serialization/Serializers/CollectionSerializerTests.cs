@@ -270,7 +270,7 @@ namespace MongoDB.Bson.Tests.Serialization.CollectionSerializers
         {
             var obj = new T { L = new ArrayList(), Q = new Queue(), S = new Stack() };
             var json = obj.ToJson();
-            var rep = "[]";
+            //var rep = "[]";
             //var expected = "{ \"L\" : { \"_t\" : \"System.Collections.ArrayList, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : [] }, \"Q\" : { \"_t\" : \"System.Collections.Queue, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : [] }, \"S\" : { \"_t\" : \"System.Collections.Stack, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : [] } }";
             //Assert.AreEqual(expected, json);
 
@@ -288,7 +288,7 @@ namespace MongoDB.Bson.Tests.Serialization.CollectionSerializers
             var list = new ArrayList(new[] { 1 });
             var obj = new T { L = list, Q = new Queue(list), S = new Stack(list) };
             var json = obj.ToJson();
-            var rep = "[1]";
+            //var rep = "[1]";
             //var expected = "{ \"L\" : { \"_t\" : \"System.Collections.ArrayList, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : [1] }, \"Q\" : { \"_t\" : \"System.Collections.Queue, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : [1] }, \"S\" : { \"_t\" : \"System.Collections.Stack, System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\", \"_v\" : [1] } }";
             //Assert.AreEqual(expected, json);
 

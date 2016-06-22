@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -83,16 +84,21 @@ namespace MongoDB.Driver.Core.Connections
             {
                 try
                 {
-                    //var dnsEndPoint = endPoint as DnsEndPoint;
-                    //if (dnsEndPoint != null)
-                    //{
-                    //    // mono doesn't support DnsEndPoint in its BeginConnect method.
-                    //    socket.Connect(dnsEndPoint.Host, dnsEndPoint.Port);
-                    //}
-                    //else
-                    //{
+                    var dnsEndPoint = endPoint as DnsEndPoint;
+                    if (dnsEndPoint != null)
+                    {
+                        // Not really sure what the ramifications are of using the first address. But UNIX and Linux
+                        //   don't support multiple tries on the same socket so .netcore sends us back a platform not supported exception if
+                        //   we pass in the host.
+                        var addresses = Dns.GetHostAddressesAsync(dnsEndPoint.Host).GetAwaiter().GetResult();
+                        socket.Connect(addresses.First(), dnsEndPoint.Port);
+                        //    // mono doesn't support DnsEndPoint in its BeginConnect method.
+                        //    socket.Connect(dnsEndPoint.Host, dnsEndPoint.Port);
+                    }
+                    else
+                    {
                         socket.Connect(endPoint);
-                    //}
+                    }
                     connected = true;
                     return;
                 }

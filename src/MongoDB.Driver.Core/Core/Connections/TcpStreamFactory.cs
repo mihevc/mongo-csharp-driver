@@ -15,7 +15,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -47,8 +46,8 @@ namespace MongoDB.Driver.Core.Connections
         // methods
         public Stream CreateStream(EndPoint endPoint, CancellationToken cancellationToken)
         {
-            var socket = CreateSocket(endPoint);
-            Connect(socket, endPoint, cancellationToken);
+            //var socket = CreateSocket(endPoint);
+            var socket = Connect(endPoint);
             return CreateNetworkStream(socket);
         }
 
@@ -73,54 +72,38 @@ namespace MongoDB.Driver.Core.Connections
             }
         }
 
-        private void Connect(Socket socket, EndPoint endPoint, CancellationToken cancellationToken)
+        private Socket Connect(EndPoint endPoint)
         {
-            var connected = false;
-            var cancelled = false;
-            var timedOut = false;
-
-            using (var registration = cancellationToken.Register(() => { if (!connected) { cancelled = true; try { socket.Dispose(); } catch { } } }))
-            using (var timer = new Timer(_ => { if (!connected) { timedOut = true; try { socket.Dispose(); } catch { } } }, null, _settings.ConnectTimeout, Timeout.InfiniteTimeSpan))
+            var dnsEndPoint = endPoint as DnsEndPoint;
+            if (dnsEndPoint != null)
             {
-                try
+                // UNIX and Linux don't support multiple tries on the same socket so .netcore sends us back a platform not supported exception if
+                //   we pass in the host.
+                var addresses = Dns.GetHostAddressesAsync(dnsEndPoint.Host).GetAwaiter().GetResult();
+
+                Exception lastExc = null;
+                foreach (var address in addresses)
                 {
-                    var dnsEndPoint = endPoint as DnsEndPoint;
-                    if (dnsEndPoint != null)
+                    var s = new Socket(GetAddressFamily(endPoint), SocketType.Stream, ProtocolType.Tcp);
+                    try
                     {
-                        // Not really sure what the ramifications are of using the first address. But UNIX and Linux
-                        //   don't support multiple tries on the same socket so .netcore sends us back a platform not supported exception if
-                        //   we pass in the host.
-                        var addresses = Dns.GetHostAddressesAsync(dnsEndPoint.Host).GetAwaiter().GetResult();
-                        socket.Connect(addresses.First(), dnsEndPoint.Port);
-                        //    // mono doesn't support DnsEndPoint in its BeginConnect method.
-                        //    socket.Connect(dnsEndPoint.Host, dnsEndPoint.Port);
+                        s.ConnectAsync(address, dnsEndPoint.Port).GetAwaiter().GetResult();
+                        return s;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        socket.Connect(endPoint);
-                    }
-                    connected = true;
-                    return;
-                }
-                catch
-                {
-                    if (!cancelled && !timedOut)
-                    {
-                        throw;
+                        lastExc = ex;
                     }
                 }
-            }
 
-            if (socket.Connected)
-            {
-                try { socket.Dispose(); } catch { }
+                if (lastExc != null) throw lastExc;
+                throw new Exception("Was unable to connect on any addresses");
             }
-
-            cancellationToken.ThrowIfCancellationRequested();
-            if (timedOut)
+            else
             {
-                var message = string.Format("Timed out connecting to {0}. Timeout was {1}.", endPoint, _settings.ConnectTimeout);
-                throw new TimeoutException(message);
+                var socket = new Socket(GetAddressFamily(endPoint), SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(endPoint);
+                return socket;
             }
         }
 
@@ -197,6 +180,14 @@ namespace MongoDB.Driver.Core.Connections
             }
 
             return stream;
+        }
+
+        private AddressFamily GetAddressFamily(EndPoint endPoint)
+        {
+            var addressFamily = endPoint.AddressFamily;
+            return addressFamily == AddressFamily.Unspecified || addressFamily == AddressFamily.Unknown
+                ? _settings.AddressFamily
+                : addressFamily;
         }
 
         private Socket CreateSocket(EndPoint endPoint)

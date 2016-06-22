@@ -53,8 +53,7 @@ namespace MongoDB.Driver.Core.Connections
 
         public async Task<Stream> CreateStreamAsync(EndPoint endPoint, CancellationToken cancellationToken)
         {
-            var socket = CreateSocket(endPoint);
-            await ConnectAsync(socket, endPoint, cancellationToken).ConfigureAwait(false);
+            var socket = await ConnectAsync(endPoint).ConfigureAwait(false);
             return CreateNetworkStream(socket);
         }
 
@@ -107,51 +106,38 @@ namespace MongoDB.Driver.Core.Connections
             }
         }
 
-        private async Task ConnectAsync(Socket socket, EndPoint endPoint, CancellationToken cancellationToken)
+        private async Task<Socket> ConnectAsync(EndPoint endPoint)
         {
-            var connected = false;
-            var cancelled = false;
-            var timedOut = false;
-
-            using (var registration = cancellationToken.Register(() => { if (!connected) { cancelled = true; try { socket.Dispose(); } catch { } } }))
-            using (var timer = new Timer(_ => { if (!connected) { timedOut = true; try { socket.Dispose(); } catch { } } }, null, _settings.ConnectTimeout, Timeout.InfiniteTimeSpan))
+            var dnsEndPoint = endPoint as DnsEndPoint;
+            if (dnsEndPoint != null)
             {
-                try
+                // UNIX and Linux don't support multiple tries on the same socket so .netcore sends us back a platform not supported exception if
+                //   we pass in the host.
+                var addresses = Dns.GetHostAddressesAsync(dnsEndPoint.Host).GetAwaiter().GetResult();
+
+                Exception lastExc = null;
+                foreach (var address in addresses)
                 {
-                    var dnsEndPoint = endPoint as DnsEndPoint;
-                    if (dnsEndPoint != null)
+                    var s = new Socket(GetAddressFamily(endPoint), SocketType.Stream, ProtocolType.Tcp);
+                    try
                     {
-                        // mono doesn't support DnsEndPoint in its BeginConnect method.
-                        await socket.ConnectAsync(dnsEndPoint.Host, dnsEndPoint.Port).ConfigureAwait(false);
-                        //await Task.Factory.FromAsync(socket.BeginConnect(dnsEndPoint.Host, dnsEndPoint.Port, null, null), socket.EndConnect).ConfigureAwait(false);
+                        s.ConnectAsync(address, dnsEndPoint.Port).GetAwaiter().GetResult();
+                        return s;
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        await socket.ConnectAsync(endPoint).ConfigureAwait(false);
-                        //await Task.Factory.FromAsync(socket.BeginConnect(endPoint, null, null), socket.EndConnect).ConfigureAwait(false);
-                    }
-                    connected = true;
-                    return;
-                }
-                catch
-                {
-                    if (!cancelled && !timedOut)
-                    {
-                        throw;
+                        lastExc = ex;
                     }
                 }
-            }
 
-            if (socket.Connected)
-            {
-                try { socket.Dispose(); } catch { }
+                if (lastExc != null) throw lastExc;
+                throw new Exception("Was unable to connect on any addresses");
             }
-
-            cancellationToken.ThrowIfCancellationRequested();
-            if (timedOut)
+            else
             {
-                var message = string.Format("Timed out connecting to {0}. Timeout was {1}.", endPoint, _settings.ConnectTimeout);
-                throw new TimeoutException(message);
+                var socket = new Socket(GetAddressFamily(endPoint), SocketType.Stream, ProtocolType.Tcp);
+                await socket.ConnectAsync(endPoint);
+                return socket;
             }
         }
 
@@ -188,16 +174,6 @@ namespace MongoDB.Driver.Core.Connections
             return addressFamily == AddressFamily.Unspecified || addressFamily == AddressFamily.Unknown
                 ? _settings.AddressFamily
                 : addressFamily;
-        }
-
-        private Socket CreateSocket(EndPoint endPoint)
-        {
-            var addressFamily = endPoint.AddressFamily;
-            if (addressFamily == AddressFamily.Unspecified || addressFamily == AddressFamily.Unknown)
-            {
-                addressFamily = _settings.AddressFamily;
-            }
-            return new Socket(addressFamily, SocketType.Stream, ProtocolType.Tcp);
         }
     }
 }

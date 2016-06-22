@@ -83,16 +83,16 @@ namespace MongoDB.Driver.Core.Connections
             {
                 try
                 {
-                    var dnsEndPoint = endPoint as DnsEndPoint;
-                    if (dnsEndPoint != null)
-                    {
-                        // mono doesn't support DnsEndPoint in its BeginConnect method.
-                        socket.Connect(dnsEndPoint.Host, dnsEndPoint.Port);
-                    }
-                    else
-                    {
+                    //var dnsEndPoint = endPoint as DnsEndPoint;
+                    //if (dnsEndPoint != null)
+                    //{
+                    //    // mono doesn't support DnsEndPoint in its BeginConnect method.
+                    //    socket.Connect(dnsEndPoint.Host, dnsEndPoint.Port);
+                    //}
+                    //else
+                    //{
                         socket.Connect(endPoint);
-                    }
+                    //}
                     connected = true;
                     return;
                 }
